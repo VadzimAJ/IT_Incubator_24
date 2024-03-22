@@ -1,17 +1,20 @@
-import './App.css';
-import { HW1 } from './HW/1/HW1';
-import { HW2 } from './HW/2/HW2';
-import { HW3 } from './HW/3/HW3';
-import { HW4 } from './HW/4/HW4';
+import React from 'react';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HomeWork_w1_1 from './stage_1/week_1/homework/homework-front-main/src/App'; // Путь к компоненту вашего другого проекта
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      {/*<HW1 />*/}
-      {/*<HW2 />*/}
-      {/*<HW3 />*/}
-      {/*<HW4 />*/}
-    </div>
+    <Router>
+      <div>
+        {/* Создаем ссылку */}
+        <Link to="/home-work-w1-1">Home work_1</Link>
+        
+        <Routes>
+          {/* Маршрут к другому проекту */}
+          <Route path="/home-work-w1-1" element={<HomeWork_w1_1 />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
