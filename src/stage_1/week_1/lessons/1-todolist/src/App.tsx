@@ -25,6 +25,7 @@ function App() {
 
     const changeFilter = (filter: FilteredValuesType) => {
         setFilter(filter)
+        console.log(tasks)
     }
     let tasksForTodolist = tasks
     if (filter === 'active') {
@@ -43,10 +44,6 @@ function App() {
         console.log(setTasks)
     }
     
-
-
-
-
     return (
         <div className="App">
             <Todolist title="What to learn"
@@ -59,6 +56,7 @@ function App() {
 
         </div>
     );
+    
 }
 
 export default App;
