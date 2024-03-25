@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Todolist } from './Todolist';
 import { v1 } from 'uuid';
+import { title } from 'process';
 
 export type TaskType = {
     id: string
@@ -21,7 +22,18 @@ function App() {
         { id: v1(), title: 'RTK query', isDone: false },
     ])
 
-    const [filter, setFilter] = useState<FilteredValuesType> ('all')
+    const addTask = ( title: string) => {
+        const newTask = {
+            id: v1(),
+            title,
+            isDone: false
+        }
+
+        const newTasks = [newTask, ...tasks]
+        setTasks(newTasks)
+    }
+
+    const [filter, setFilter] = useState<FilteredValuesType>('all')
 
     const changeFilter = (filter: FilteredValuesType) => {
         setFilter(filter)
@@ -29,7 +41,7 @@ function App() {
     }
     let tasksForTodolist = tasks
     if (filter === 'active') {
-        tasksForTodolist = tasks.filter(task => !task.isDone )
+        tasksForTodolist = tasks.filter(task => !task.isDone)
     }
 
     if (filter === 'completed') {
@@ -43,7 +55,10 @@ function App() {
         setTasks(filteredTasks)
         console.log(setTasks)
     }
+
+
     
+
     return (
         <div className="App">
             <Todolist title="What to learn"
@@ -51,12 +66,13 @@ function App() {
                 removeTask={removeTask}
                 date={'20.03.2024'}
                 changeFilter={changeFilter}
+                addTask={addTask}
             //
             />
 
         </div>
     );
-    
+
 }
 
 export default App;
