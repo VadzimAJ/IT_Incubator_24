@@ -24,7 +24,15 @@ export const Todolist = ({ title, tasks, date, removeTask, changeFilter, addTask
       <h3>{title}</h3>
       <div>
         <input value={taskTile} 
-                onChange={event => setTaskTitle(event.currentTarget.value)}/>
+              onChange={event =>{
+                setTaskTitle(event.currentTarget.value)
+              }}                
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    adTaskHandler()
+                  }
+                }}
+              />
         <Button title='+' onClick={adTaskHandler} />
       </div>
 
