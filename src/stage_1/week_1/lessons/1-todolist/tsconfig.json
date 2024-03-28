@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "public/switch/swintch_from_classwork/App.tsx", "public/switch/swintch_from_classwork/Button.tsx", "public/switch/swintch_from_classwork/index.tsx", "public/switch/swintch_from_classwork/react-app-env.d.ts", "public/switch/swintch_from_classwork/setupTests.ts", "public/switch/swintch_from_classwork/Todolist.tsx"  ]
 }
