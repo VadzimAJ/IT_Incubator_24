@@ -1,5 +1,4 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { useRef } from 'react';
 import { FilteredValuesType, TaskType } from './App';
 import { Button } from './Button';
 
@@ -13,7 +12,7 @@ type PropsType = {
   date?: string
 }
 
-export const Todolist = ({ title, tasks, date, removeTask, changeFilter, addTask }: PropsType) => {
+export const Todolist = ({ title, tasks, date, removeTask, changeTaskStatus, changeFilter, addTask }: PropsType) => {
   const [taskTile, setTaskTitle] = useState('')
   const addTaskHandler = () => {
     addTask(taskTile)
@@ -30,10 +29,16 @@ export const Todolist = ({ title, tasks, date, removeTask, changeFilter, addTask
     }
   }
 
-  const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskId: string) => {
-    const newStatusValue = e.currentTarget.checked
-    changeTaskStatus(taskId, newStatusValue)
-}
+  const changeTaskStatusHandler = (taskId: string) => {
+    return (e: ChangeEvent<HTMLInputElement>) => {
+      const newStatusValue = e.currentTarget.checked;
+      changeTaskStatus(taskId, newStatusValue);
+    }
+  };
+
+  const removeTaskHandler = (taskId: string) => {
+    removeTask(taskId)
+  }
 
   
 
@@ -54,17 +59,13 @@ export const Todolist = ({ title, tasks, date, removeTask, changeFilter, addTask
         ) : (
           <ul>
             {tasks.map(task => {
-              const removeTaskHandler = () => {
-                removeTask(task.id)
-              }
-
               return (
                 <li key={task.id}>
                   <input type="checkbox" 
                           checked={task.isDone} 
-                          onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)} />
+                          onChange={changeTaskStatusHandler(task.id)} />
                   <span>{task.title}</span>
-                  <Button  onClick={removeTaskHandler} title='х'/>
+                  <Button  onClick={() => removeTaskHandler(task.id)} title='х'/>
                 </li>
               )
             })}
