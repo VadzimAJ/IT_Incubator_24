@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "plugins": [{ "transform": "ts-nameof", "type": "raw" }],
     "target": "es5",
     "lib": [
       "dom",
@@ -18,9 +19,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    
   },
   "include": [
     "src"
-, "public/switch/swintch_from_classwork/App.tsx", "public/switch/swintch_from_classwork/Button.tsx", "public/switch/swintch_from_classwork/index.tsx", "public/switch/swintch_from_classwork/react-app-env.d.ts", "public/switch/swintch_from_classwork/setupTests.ts", "public/switch/swintch_from_classwork/Todolist.tsx"  ]
+, "public/switch/swintch_from_classwork/App.tsx", "public/switch/swintch_from_classwork/Button.tsx", "public/switch/swintch_from_classwork/index.tsx", "public/switch/swintch_from_classwork/react-app-env.d.ts", "public/switch/swintch_from_classwork/setupTests.ts", "public/switch/swintch_from_classwork/Todolist.tsx", "public/switch/independent_lessons/App.tsx", "public/switch/independent_lessons/Button.tsx", "public/switch/independent_lessons/index.tsx", "public/switch/independent_lessons/react-app-env.d.ts", "public/switch/independent_lessons/setupTests.ts", "public/switch/independent_lessons/Todolist.tsx", "public/switch/switch_2_classwork_2_end/AddItemForm.tsx", "public/switch/switch_2_classwork_2_end/App.tsx", "public/switch/switch_2_classwork_2_end/Button.tsx", "public/switch/switch_2_classwork_2_end/EditableSpan.tsx", "public/switch/switch_2_classwork_2_end/index.tsx", "public/switch/switch_2_classwork_2_end/react-app-env.d.ts", "public/switch/switch_2_classwork_2_end/setupTests.ts", "public/switch/switch_2_classwork_2_end/Todolist.tsx"  ]
 }

@@ -1,5 +1,4 @@
 type ButtonPropsType = {
-  propsName?: string
   title: string
   onClick? : () => void
   className?: string

@@ -2,46 +2,29 @@ import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { FilteredValuesType, TaskType } from './App';
 import { Button } from './Button';
 
-export type PropsType = {
-  propsName?: string
+type PropsType = {
   title: string
   tasks: TaskType[]
   filter: FilteredValuesType
   removeTask: (taskId: string) => void
   changeFilter: (filter: FilteredValuesType) => void
-  changeTaskStatus: (taskId: string, newStatusValue: boolean) => void;
+  changeTaskStatus: (taskId: string, newStatusValue: boolean) => void; 
   addTask: (title: string) => void
   date?: string
 }
 
-
-function printPropsType(propsType: PropsType): string {
-  const keys = Object.keys(propsType) as Array<keyof PropsType>;
-
-  const propsString = keys.map(key => {
-    const value = propsType[key];
-    return `${key}: ${typeof value} = ${JSON.stringify(value)}`;
-  }).join(', ');
-
-  return propsString;
-}
-
-
-export const Todolist = ({ title, tasks, date, filter, removeTask, changeTaskStatus, changeFilter, addTask, propsName }: PropsType) => {
-  console.log(propsName + " consist from: ");
-  Object.entries({ title, tasks, date, filter, removeTask, changeTaskStatus, changeFilter, addTask }).forEach(([key, value]) => {
-    console.log(key + ": " + value);
-  });//TASK TITLE 
+export const Todolist = ({ title, tasks, date, filter, removeTask, changeTaskStatus, changeFilter, addTask }: PropsType) => {
+  //TASK TITLE 
   const [taskTile, setTaskTitle] = useState('')
   const [error, setError] = useState<string | null>(null)
 
 
   //TASK HENDLER
   const addTaskHandler = () => {
-    if (taskTile.trim() !== '') {
+    if (taskTile.trim() !== ''){
       addTask(taskTile.trim())
       setTaskTitle('')
-    } else {
+    }else {
       setError("Title is required")
     }
   }
@@ -54,7 +37,7 @@ export const Todolist = ({ title, tasks, date, filter, removeTask, changeTaskSta
     setError(null)
     if (event.key === 'Enter') {
       addTaskHandler()
-    }
+    } 
   }
 
   const changeTaskStatusHandler = (taskId: string) => {
@@ -68,13 +51,13 @@ export const Todolist = ({ title, tasks, date, filter, removeTask, changeTaskSta
     removeTask(taskId)
   }
 
-
+  
 
   return (
     <div>
       <h3>{title}</h3>
       <div>
-        <input
+        <input 
           className={error ? 'error' : ''}
           value={taskTile}
           onChange={chngeTaskTitleHandler}
@@ -92,11 +75,11 @@ export const Todolist = ({ title, tasks, date, filter, removeTask, changeTaskSta
             {tasks.map(task => {
               return (
                 <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                  <input type="checkbox"
-                    checked={task.isDone}
-                    onChange={changeTaskStatusHandler(task.id)} />
+                  <input type="checkbox" 
+                          checked={task.isDone} 
+                          onChange={changeTaskStatusHandler(task.id)} />
                   <span>{task.title}</span>
-                  <Button onClick={() => removeTaskHandler(task.id)} title='х' />
+                  <Button  onClick={() => removeTaskHandler(task.id)} title='х'/>
                 </li>
               )
             })}
@@ -105,28 +88,22 @@ export const Todolist = ({ title, tasks, date, filter, removeTask, changeTaskSta
       </div>
 
       <div>
-        <Button
-          propsName="ButtonPropsType"
-          className={filter === 'all' ? 'active-filter active-filter-font' : ''}
-          title='All'
-          onClick={() => changeFilter('all')}
+        <Button 
+          className={filter === 'all' ? 'active-filter active-filter-font': ''}
+          title='All' 
+          onClick={() => changeFilter('all')} 
         />
-        <Button
-          propsName="ButtonPropsType"
-          className={filter === 'active' ? 'active-filter active-filter-font' : ''}
-          title='Active'
-          onClick={() => changeFilter('active')}
-        />
-        <Button
-          propsName="ButtonPropsType"
-          className={filter === 'completed' ? 'active-filter active-filter-font' : ''}
-          title='Completed'
-          onClick={() => changeFilter('completed')}
-        />
+        <Button 
+        className={filter === 'active' ? 'active-filter active-filter-font': ''}
+        title='Active' 
+        onClick={() => changeFilter('active')} />
+        <Button 
+        className={filter === 'completed' ? 'active-filter active-filter-font': ''}
+        title='Completed' 
+        onClick={() => changeFilter('completed')} />
       </div>
 
       <div>{date}</div>
-
 
     </div>
   )

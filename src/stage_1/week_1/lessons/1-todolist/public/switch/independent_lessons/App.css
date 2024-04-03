@@ -1,5 +1,6 @@
 .App {
   padding: 30px;
+  display: flex;
 }
 
 .App > div {
@@ -24,13 +25,4 @@
 }
 .is-done {
   opacity: 0.5;
-}
-
-.frame-body{
-  display: flex;
-}
-
-.frame-body {
-  display: flex;
-  justify-content: space-between;
 }

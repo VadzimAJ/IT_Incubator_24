@@ -1908,6 +1908,26 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
+"@ts-nameof/common@^4.2.0":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@ts-nameof/common/-/common-4.2.1.tgz#76e6ab5b4a11c92b2a2a79bf133ae49b57d7efc3"
+  integrity sha512-bWwYOFTTd6Nq7RUqJalIii1su3OyR+N1W0smp5PzHGUVycHuJ7MRiyCQrWgMt1lbbp3GY6cvCttm7Zo5E7A1xQ==
+
+"@ts-nameof/transforms-common@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@ts-nameof/transforms-common/-/transforms-common-4.2.1.tgz#a38c18ef62f921ffcea7b4a9a693cb63301e23d3"
+  integrity sha512-mg6nkkHqNlKU1B15pEtiikSKadJSOxFFWpi7tEVB7Yhjx0PhoTcSe7oxK0fXHZGeoTGF2SMZjmCsGnbtfcgk6w==
+  dependencies:
+    "@ts-nameof/common" "^4.2.0"
+
+"@ts-nameof/transforms-ts@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@ts-nameof/transforms-ts/-/transforms-ts-4.2.1.tgz#a37921017694b75a3bc17fa6519408ee32298efd"
+  integrity sha512-/zI2+DEQ1wvM0UQY5znG4efGbNSyBp+h4pzQZssGcst1748Np92RCWUnGfyV1qDlpIVma4S8Rx5HgkoDLPfMMg==
+  dependencies:
+    "@ts-nameof/common" "^4.2.0"
+    "@ts-nameof/transforms-common" "^4.2.1"
+
 "@types/aria-query@^5.0.1":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-5.0.4.tgz#1a31c3d378850d2778dabb6374d036dcba4ba708"
@@ -2215,6 +2235,11 @@
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
   integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
+"@types/ts-nameof@^4.2.5":
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/@types/ts-nameof/-/ts-nameof-4.2.5.tgz#4a271e2e30eae74881e9a1977c090fa5e542fd65"
+  integrity sha512-bdJP6fHAfxdjQYeIrWEPOegSkSR3uOwuDVZmzTR2ueypQdyhrkh8GlbSnM6wi4Qn6RxeOvFanyltT1T6H4Wccg==
 
 "@types/uuid@^9.0.8":
   version "9.0.8"
@@ -8246,7 +8271,7 @@ resolve.exports@^1.1.0:
   resolved "https://registry.yarnpkg.com/resolve.exports/-/resolve.exports-1.1.1.tgz#05cfd5b3edf641571fd46fa608b610dda9ead999"
   integrity sha512-/NtpHNDN7jWhAaQ9BvBUYZ6YTXsRBgfqWFWP7BZBaoMJO/I3G5OFzvTuWNlZC3aPjins1F+TNrLKsGbH4rfsRQ==
 
-resolve@^1.1.7, resolve@^1.14.2, resolve@^1.19.0, resolve@^1.20.0, resolve@^1.22.2, resolve@^1.22.4:
+resolve@>=1.9.0, resolve@^1.1.7, resolve@^1.14.2, resolve@^1.19.0, resolve@^1.20.0, resolve@^1.22.2, resolve@^1.22.4:
   version "1.22.8"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.8.tgz#b6c87a9f2aa06dfab52e3d70ac8cde321fa5a48d"
   integrity sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==
@@ -9132,6 +9157,15 @@ ts-interface-checker@^0.1.9:
   resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz#784fd3d679722bc103b1b4b8030bcddb5db2a699"
   integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
 
+ts-nameof@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ts-nameof/-/ts-nameof-5.0.0.tgz#9ef33e9eeb4e0bf405073be35cf91ddf8952ac62"
+  integrity sha512-KKebM+HvZdtiFLVUtkvTmlJNzmMPMMwzw7yCcTCA5XRmwDupX/JuPEfnXYpu/Bfb8d+voF1ih2fdizqgKSIO+g==
+  dependencies:
+    "@ts-nameof/common" "^4.2.0"
+    "@ts-nameof/transforms-ts" "^4.2.1"
+    glob "^7.1.6"
+
 tsconfig-paths@^3.15.0:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.15.0.tgz#5299ec605e55b1abb23ec939ef15edaf483070d4"
@@ -9158,6 +9192,13 @@ tsutils@^3.21.0:
   integrity sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==
   dependencies:
     tslib "^1.8.1"
+
+ttypescript@^1.5.15:
+  version "1.5.15"
+  resolved "https://registry.yarnpkg.com/ttypescript/-/ttypescript-1.5.15.tgz#e45550ad69289d06d3bc3fd4a3c87e7c1ef3eba7"
+  integrity sha512-48ykDNHzFnPMnv4hYX1P8Q84TvCZyL1QlFxeuxsuZ48X2+ameBgPenvmCkHJtoOSxpoWTWi8NcgNrRnVDOmfSg==
+  dependencies:
+    resolve ">=1.9.0"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

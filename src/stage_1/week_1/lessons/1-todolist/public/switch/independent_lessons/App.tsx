@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Todolist } from './Todolist';
-import { GlobalFrameHelper } from './GlobalFrameHalper'
 import { v1 } from 'uuid';
-
 
 export type TaskType = {
     id: string
@@ -52,7 +50,7 @@ function App() {
     //FILTERING BY ACTIVITY 
 
     let tasksForTodolist = tasks
-
+    
     if (filter === 'active') {
         tasksForTodolist = tasks.filter(task => !task.isDone)
     }
@@ -73,7 +71,7 @@ function App() {
     //CHANGE TASK STATUS
 
     const changeTaskStatus = (taskId: string, newStatusValue: boolean) => {
-
+        
         setTasks(
             tasks.map((task) =>
                 task.id === taskId ? { ...task, isDone: newStatusValue } : task
@@ -83,24 +81,16 @@ function App() {
 
     return (
         <div className="App">
-            <GlobalFrameHelper>
-                {{
-                    todolist: (
-                    <Todolist
-                        propsName="PropsType"
-                        title="What to learn"
-                        filter={filter}
-                        tasks={tasksForTodolist}
-                        removeTask={removeTask}
-                        date={'20.03.2024'}
-                        changeFilter={changeFilter}
-                        changeTaskStatus={changeTaskStatus}
-                        addTask={addTask}
-                    />
-                    )
-                }}
-
-            </GlobalFrameHelper>
+            <Todolist title="What to learn"
+                filter={filter}
+                tasks={tasksForTodolist}
+                removeTask={removeTask}
+                date={'20.03.2024'}
+                changeFilter={changeFilter}
+                changeTaskStatus={changeTaskStatus}
+                addTask={addTask}
+            //
+            />
 
         </div>
     );
