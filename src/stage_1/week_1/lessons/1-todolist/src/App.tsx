@@ -81,25 +81,22 @@ function App() {
         );
     };
 
+    
+
     return (
         <div className="App">
             <GlobalFrameHelper>
-                {{
-                    todolist: (
-                    <Todolist
-                        propsName="PropsType"
-                        title="What to learn"
-                        filter={filter}
-                        tasks={tasksForTodolist}
-                        removeTask={removeTask}
-                        date={'20.03.2024'}
-                        changeFilter={changeFilter}
-                        changeTaskStatus={changeTaskStatus}
-                        addTask={addTask}
-                    />
-                    )
-                }}
-
+                <Todolist
+                    propsName="PropsType"
+                    title="What to learn"
+                    filter={filter}
+                    tasks={tasksForTodolist}
+                    removeTask={removeTask}
+                    date={'20.03.2024'}
+                    changeFilter={changeFilter}
+                    changeTaskStatus={changeTaskStatus}
+                    addTask={addTask}
+                />
             </GlobalFrameHelper>
 
         </div>

@@ -2,10 +2,41 @@
   padding: 30px;
 }
 
-.App > div {
+/* GLOBAL FRAME*/
+.frame-body {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.frame-body > div {
+  margin: 10px;
+}
+
+.frame-app, .frame-app-helper {
+  display: flex;
+  flex-grow: 1;
+}
+
+.frame-app-helper {
+  flex-wrap: wrap;
+}
+
+.frame-app{
+  background-color: rgb(103, 169, 169);
+  
+}
+
+.frame-app-helper{
+  background-color: rgb(183, 113, 229);
+}
+
+.frame-app > div, .frame-app-helper > div {
   margin-right: 50px;
 }
 
+
+/* styles*/
 
 .error {
   border: red 1px solid;
@@ -24,13 +55,4 @@
 }
 .is-done {
   opacity: 0.5;
-}
-
-.frame-body{
-  display: flex;
-}
-
-.frame-body {
-  display: flex;
-  justify-content: space-between;
 }

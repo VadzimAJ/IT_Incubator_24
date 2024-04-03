@@ -7,22 +7,18 @@
   margin-right: 50px;
 }
 
-
 .error {
   border: red 1px solid;
 }
 
-.error-message{
-  color: brown;
+.error-message {
+  color: red;
 }
 
 .active-filter {
-  background-color: rgb(27, 158, 158);
+  background-color: aquamarine;
 }
 
-.active-filter-font {
-  color: white;
-}
 .is-done {
   opacity: 0.5;
 }
