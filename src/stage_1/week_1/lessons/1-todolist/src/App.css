@@ -15,7 +15,7 @@
 
 .frame-app, .frame-app-helper {
   display: flex;
-  flex-grow: 1;
+  width: 50%;
 }
 
 .frame-app-helper {
@@ -29,6 +29,10 @@
 
 .frame-app-helper{
   background-color: rgb(183, 113, 229);
+}
+
+.frame-app-helper-content{
+  white-space: pre-wrap;
 }
 
 .frame-app > div, .frame-app-helper > div {
@@ -55,4 +59,18 @@
 }
 .is-done {
   opacity: 0.5;
+}
+
+.collapsible {
+  cursor: pointer;
+}
+
+.content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+.open {
+  overflow: hidden;
 }

@@ -87,7 +87,9 @@ function App() {
         <div className="App">
             <GlobalFrameHelper>
                 <Todolist
+                    componentName = "Todolist"
                     propsName="PropsType"
+                    pathToProps = "./Todolist"
                     title="What to learn"
                     filter={filter}
                     tasks={tasksForTodolist}

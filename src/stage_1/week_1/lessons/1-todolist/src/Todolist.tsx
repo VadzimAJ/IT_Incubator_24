@@ -3,7 +3,9 @@ import { FilteredValuesType, TaskType } from './App';
 import { Button } from './Button';
 
 export type PropsType = {
+  componentName?: string
   propsName?: string
+  pathToProps?: string
   title: string
   tasks: TaskType[]
   filter: FilteredValuesType
@@ -12,18 +14,6 @@ export type PropsType = {
   changeTaskStatus: (taskId: string, newStatusValue: boolean) => void;
   addTask: (title: string) => void
   date?: string
-}
-
-
-function printPropsType(propsType: PropsType): string {
-  const keys = Object.keys(propsType) as Array<keyof PropsType>;
-
-  const propsString = keys.map(key => {
-    const value = propsType[key];
-    return `${key}: ${typeof value} = ${JSON.stringify(value)}`;
-  }).join(', ');
-
-  return propsString;
 }
 
 
