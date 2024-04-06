@@ -11,77 +11,99 @@ interface GlobalFrameHelperPropsType {
 
 export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
 
-  
   const todolistProps = children.props;
   const nameOfProps = todolistProps.propsName;
-  const pathToProps = todolistProps. pathToProps;
+  const pathToProps = todolistProps.pathToProps;
   const componentName = todolistProps.componentName;
 
   const entriesFromProps = Object.entries(todolistProps);
 
-  const [isOpen, setIsOpen] = useState(false);
+  interface IsOpenStateType {
+    [key: number]: boolean;
+  }
+  interface toggleAllStateType {
+    toogleAll: boolean;
+  }
+  
+  const [isOpenState, setIsOpenState] = useState<IsOpenStateType>(Object.fromEntries(entriesFromProps.map((_, index) => [index, false])));
+  const [toggleAllState, setToggleAllState] = useState<boolean>(false);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  }; 
+  const handleClick = (index: number) => {
+    setIsOpenState(prevState => ({
+      ...prevState,
+      [index]: !prevState[index] 
+    }));
+  };
 
-  const entryElements = entriesFromProps.map(([key, value]) => {
+  const toggleAllElements = () => {
+    setIsOpenState(prevState => {
+      const updatedState: IsOpenStateType = {};
+      const newToggleAllState = !toggleAllState; 
+      for (const index in prevState) {
+        updatedState[index] = newToggleAllState; 
+      }
+      setToggleAllState(newToggleAllState);
+      return updatedState;
+    });
+  };
+
+  const toggleAllTitle = toggleAllState ? 'Close all' : 'Open all';
+
+  const spanFragment = (key: string, value: any) => (
+    <span className="frame-app-helper-span clicble"  >
+      <strong>{key}</strong>: is {typeof value} type<br />
+    </span>
+  );
+
+  const entryElements = entriesFromProps.map(([key, value], index) => {
+    const isOpen = isOpenState[index] || false; 
     return (
-      <div>
-        {typeof value === 'object' 
+      <div key={key}>
+        {typeof value === 'object'
+        //IF VALUE isObject
           ? ( Array.isArray(value) 
-            ? (<li key={key} onClick={handleClick}>
-              <span className="frame-app-helper-span"  >
-                <strong>{key}</strong>: type is {typeof value}<br />
-              </span>
-              <div className= {`content ${isOpen ? 'open' : ''}`}>
-                {value.map((item, index) => (
-                  <React.Fragment key={index}>
+          //IF OBJECT is Array
+            ? (<li key={key} onClick={() => handleClick(index)}>
+              {spanFragment(key, value)}
+              <div className={isOpen ? 'open' : 'close'}>
+
+                {value.map((item, idx) => (
+                  <React.Fragment key={idx}>
                     {Object.entries(item).map(([k, v]) => (
-                      <React.Fragment key={k}>
+                      <React.Fragment key={k}>{typeof v === "boolean"}
                         {k}: {v}<br />
                       </React.Fragment>
                     ))}
                     <br />
                   </React.Fragment>
-                ))}</div>
+                ))}
                 
-              
-              
+              </div>
             </li>)
-            : (<li key={key} onClick={handleClick}>
-              <span className="frame-app-helper-span">
-                <strong>{key}</strong>: type is {typeof value}<br />
-              </span>
-              <div className={`content ${isOpen ? 'open' : ''}`} >
-              {JSON.stringify(value)}<br /><br />
+            //IF OBJECT is !Array
+            : (<li key={key} onClick={() => handleClick(index)}>
+              {spanFragment(key, value)}
+              <div className={isOpen ? 'open' : 'close'} >
+              {JSON.stringify(value)}<br /><br />className={isOpen ? 'open' : 'content'}
               </div>
           </li>)
-          
+          //IF VALUE !isObject
           ) : (
-            <li key={key}>
-              <span >
-                <strong>{key}</strong>: type is {typeof value}
-                </span>
-                <div className="frame-app-helper-content content" onClick={handleClick}> 
+            <li key={key} onClick={() => handleClick(index)}>
+                {spanFragment(key, value)}
+                <div className={isOpen ? 'open' : 'close'}> 
                 {`${value}`}<br />
                 </div>
-                
-              
             </li>
           )}
       </div>
     );
   });
 
-  const childString = `<${componentName}\n` +
-    entriesFromProps.map(([key, value]) => {
-      return `  ${key}={${typeof value === 'object' ? JSON.stringify(value) : `'${value}'`}}`;
-    }).join('\n') +
-    '\n/>';
-
   const clonedTodolist = cloneElement(children, {
   });
+
+  
 
   return (
     <div className="frame-body">
@@ -89,14 +111,17 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
         {clonedTodolist}
       </div>
 
-      <div className="frame-app-helper">
-        <p>Hello World</p>
-        <div className="collapsible">
+      <div className="frame-app-helper" >
+        <div className="collapsible" >
           <h3>{nameOfProps} of {componentName} component:</h3>
+          <Button
+            propsName="ButtonPropsType"
+            className={"Open-all"}
+            title="{toggleAllTitle() as string}"
+            onClick={toggleAllElements}
+          
+          />
           {entryElements}
-          <SyntaxHighlighter language="jsx" style={docco}>
-            {childString}
-          </SyntaxHighlighter>
         </div>
 
         <div>

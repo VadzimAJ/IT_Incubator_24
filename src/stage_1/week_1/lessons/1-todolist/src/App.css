@@ -36,7 +36,7 @@
 }
 
 .frame-app > div, .frame-app-helper > div {
-  margin-right: 50px;
+  margin-right: 150px;
 }
 
 
@@ -61,16 +61,21 @@
   opacity: 0.5;
 }
 
-.collapsible {
+.clicble {
   cursor: pointer;
 }
 
-.content {
+.close {
   overflow: hidden;
-  max-height: 0;
   transition: max-height 0.3s ease-out;
+
+  padding-left: 20px;
+  max-height: 0;
 }
 
 .open {
-  overflow: hidden;
+  overflow: visible;
+
+  max-height: 100%;
+  padding-left: 20px;
 }
