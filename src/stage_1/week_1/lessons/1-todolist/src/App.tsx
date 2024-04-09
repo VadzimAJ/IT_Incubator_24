@@ -1,109 +1,98 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Todolist } from './Todolist';
-import { GlobalFrameHelper } from './GlobalFrameHalper'
+import { GlobalFrameHelper } from './GlobalFrameHalper';
 import { v1 } from 'uuid';
 
+export type TodolistType = {
+    id: string;
+    title: string;
+    filter: FilteredValuesType;
+};
 
 export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+    id: string;
+    title: string;
+    isDone: boolean;
+};
 
-export type TaskStatusType = {
-    taskId: string
-    newStatusValue: boolean
-}
-
-export type FilteredValuesType = 'all' | 'active' | 'completed'
+export type FilteredValuesType = 'all' | 'active' | 'completed';
 
 function App() {
+    let [todolists, setTodolists] = useState<TodolistType[]>([
+        { id: v1(), title: 'What to learn', filter: 'all' },
+        { id: v1(), title: 'What to buy', filter: 'all' }
+    ]);
+
     const [tasks, setTasks] = useState<TaskType[]>([
         { id: v1(), title: 'HTML&CSS', isDone: true },
         { id: v1(), title: 'JS', isDone: true },
         { id: v1(), title: 'ReactJS', isDone: false },
         { id: v1(), title: 'Redux', isDone: false },
         { id: v1(), title: 'Typescript', isDone: false },
-        { id: v1(), title: 'RTK query', isDone: false },
-    ])
+        { id: v1(), title: 'RTK query', isDone: false }
+    ]);
 
-    //FILTER FUNCTIONS
-
-    const [filter, setFilter] = useState<FilteredValuesType>('all')
+    const [filter, setFilter] = useState<FilteredValuesType>('all');
 
     const changeFilter = (filter: FilteredValuesType) => {
-        setFilter(filter)
-    }
-
-
-    //ADD TASK
+        setFilter(filter);
+    };
 
     const addTask = (title: string) => {
         const newTask = {
             id: v1(),
             title,
             isDone: false
-        }
+        };
 
-        const newTasks = [newTask, ...tasks]
-        setTasks(newTasks)
-    }
+        const newTasks = [newTask, ...tasks];
+        setTasks(newTasks);
+    };
 
-    //FILTERING BY ACTIVITY 
-
-    let tasksForTodolist = tasks
+    let tasksForTodolist = tasks;
 
     if (filter === 'active') {
-        tasksForTodolist = tasks.filter(task => !task.isDone)
+        tasksForTodolist = tasks.filter(task => !task.isDone);
     }
 
     if (filter === 'completed') {
-        tasksForTodolist = tasks.filter(task => task.isDone)
+        tasksForTodolist = tasks.filter(task => task.isDone);
     }
-
-    //REMOVE TASK
 
     const removeTask = (taskId: string) => {
         const filteredTasks = tasks.filter(task => {
-            return task.id !== taskId
-        })
-        setTasks(filteredTasks)
-    }
-
-    //CHANGE TASK STATUS
+            return task.id !== taskId;
+        });
+        setTasks(filteredTasks);
+    };
 
     const changeTaskStatus = (taskId: string, newStatusValue: boolean) => {
-
         setTasks(
-            tasks.map((task) =>
+            tasks.map(task =>
                 task.id === taskId ? { ...task, isDone: newStatusValue } : task
             )
         );
     };
 
-
+    const todolistComponents = todolists.map(tl => (
+        <Todolist
+            key={tl.id}
+            title={tl.title}
+            tasks={tasksForTodolist}
+            removeTask={removeTask}
+            changeFilter={changeFilter}
+            addTask={addTask}
+            changeTaskStatus={changeTaskStatus}
+            filter={tl.filter}
+        />
+    ));
 
     return (
         <div className="App">
-            <GlobalFrameHelper>
-                <Todolist
-                    componentName="Todolist"
-                    propsName="PropsType"
-                    pathToProps="./Todolist"
-                    title="What to learn"
-                    tasks={tasksForTodolist}
-                    removeTask={removeTask}
-                    changeFilter={changeFilter}
-                    addTask={addTask}
-                    changeTaskStatus={changeTaskStatus}
-                    filter={filter}
-                />
-            </GlobalFrameHelper>
-
+            <GlobalFrameHelper todolists={todolists}>{todolistComponents}</GlobalFrameHelper>
         </div>
     );
-
 }
 
 export default App;

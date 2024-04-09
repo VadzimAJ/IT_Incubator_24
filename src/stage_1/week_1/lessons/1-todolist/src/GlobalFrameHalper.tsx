@@ -1,15 +1,16 @@
 import React, { useState, useEffect, cloneElement } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { FilteredValuesType, TaskType } from './App';
+import { FilteredValuesType, TaskType, TodolistType } from './App';
 import { Button } from './Button';
 import { PropsType } from './Todolist';
 
 interface GlobalFrameHelperPropsType {
   children: React.ReactElement<PropsType>;
+  todolists: TodolistType[]
 }
 
-export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
+export const GlobalFrameHelper = ({ children, todolists }: GlobalFrameHelperPropsType) => {
 
   const todolistProps = children.props;
   const nameOfProps = todolistProps.propsName;
@@ -106,16 +107,20 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
     );
   });
 
-  const clonedTodolist = cloneElement(children, {
-  });
+  const clonedTodolist = cloneElement(children, {});
 
   
 
   return (
     <div className="frame-body">
+      {todolists.map(tl => {
+        return (
       <div className="frame-app">
         {clonedTodolist}
       </div>
+      
+    )
+  })}
 
       <div className="frame-app-helper" >
         <div className="collapsible" >
