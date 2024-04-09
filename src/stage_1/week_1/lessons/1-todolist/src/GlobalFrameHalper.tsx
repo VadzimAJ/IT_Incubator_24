@@ -60,38 +60,44 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
     return (
       <div key={key}>
         {typeof value === 'object'
-        //IF VALUE isObject
-          ? ( Array.isArray(value) 
-          //IF OBJECT is Array
-            ? (<li key={key} onClick={() => handleClick(index)}>
-              {spanFragment(key, value)}
-              <div className={isOpen ? 'open' : 'close'}>
-
-                {value.map((item, idx) => (
-                  <React.Fragment key={idx}>
-                    {Object.entries(item).map(([k, v]) => (
-                      <React.Fragment key={k}>{typeof v === "boolean"}
-                        {k}: {v}<br />
-                      </React.Fragment>
-                    ))}
-                    <br />
-                  </React.Fragment>
-                ))}
-                
-              </div>
-            </li>)
+      //IF VALUE isObject
+        ? (Array.isArray(value) 
+        //IF OBJECT is Array
+          ? (<li key={key} onClick={() => handleClick(index)}>
+            {spanFragment(key, value)}
+            <ul className={isOpen ? 'open div-propsVuie' : 'close div-propsVuie'}>
+              {value.map((item, idx) => (
+                <React.Fragment key={idx}>
+                  {Object.entries(item).map(([k, v]) => (
+                    <React.Fragment key={k}>
+                      {typeof v === "boolean" ? (
+                        <li>
+                          {k}: {v ? 'true' : 'false'}<br />
+                        </li>
+                      ) : (
+                        <li>
+                          {k}: {v}<br />
+                        </li>
+                      )}
+                    </React.Fragment>
+                  ))}
+                  <br />
+                </React.Fragment>
+              ))}
+            </ul>
+          </li>)
             //IF OBJECT is !Array
             : (<li key={key} onClick={() => handleClick(index)}>
               {spanFragment(key, value)}
-              <div className={isOpen ? 'open' : 'close'} >
-              {JSON.stringify(value)}<br /><br />className={isOpen ? 'open' : 'content'}
+              <div className={isOpen ? 'open div-propsVuie' : 'close div-propsVuie'} >
+              {JSON.stringify(value)}<br /><br />className={isOpen ? 'open ' : 'content'}
               </div>
           </li>)
           //IF VALUE !isObject
           ) : (
             <li key={key} onClick={() => handleClick(index)}>
                 {spanFragment(key, value)}
-                <div className={isOpen ? 'open' : 'close'}> 
+                <div className={isOpen ? 'open div-propsVuie' : 'close div-propsVuie'}> 
                 {`${value}`}<br />
                 </div>
             </li>
@@ -117,7 +123,7 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
           <Button
             propsName="ButtonPropsType"
             className={"Open-all"}
-            title="{toggleAllTitle() as string}"
+            title="Toggle"
             onClick={toggleAllElements}
           
           />

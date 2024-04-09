@@ -28,6 +28,15 @@ function App() {
         { id: v1(), title: 'RTK query', isDone: false },
     ])
 
+    //FILTER FUNCTIONS
+
+    const [filter, setFilter] = useState<FilteredValuesType>('all')
+
+    const changeFilter = (filter: FilteredValuesType) => {
+        setFilter(filter)
+    }
+
+
     //ADD TASK
 
     const addTask = (title: string) => {
@@ -39,14 +48,6 @@ function App() {
 
         const newTasks = [newTask, ...tasks]
         setTasks(newTasks)
-    }
-
-    //FILTER FUNCTIONS
-
-    const [filter, setFilter] = useState<FilteredValuesType>('all')
-
-    const changeFilter = (filter: FilteredValuesType) => {
-        setFilter(filter)
     }
 
     //FILTERING BY ACTIVITY 
@@ -81,23 +82,22 @@ function App() {
         );
     };
 
-    
+
 
     return (
         <div className="App">
             <GlobalFrameHelper>
                 <Todolist
-                    componentName = "Todolist"
+                    componentName="Todolist"
                     propsName="PropsType"
-                    pathToProps = "./Todolist"
+                    pathToProps="./Todolist"
                     title="What to learn"
-                    filter={filter}
                     tasks={tasksForTodolist}
                     removeTask={removeTask}
-                    date={'20.03.2024'}
                     changeFilter={changeFilter}
-                    changeTaskStatus={changeTaskStatus}
                     addTask={addTask}
+                    changeTaskStatus={changeTaskStatus}
+                    filter={filter}
                 />
             </GlobalFrameHelper>
 
