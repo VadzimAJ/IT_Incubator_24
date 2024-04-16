@@ -11,13 +11,14 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
   const todolistProps = children.props;
   const nameOfProps = todolistProps.propsName;
   const componentName = todolistProps.componentName;
+  const titleName = todolistProps.title;
 
   const entriesFromProps = Object.entries(todolistProps);
 
   type IsOpenStateType = {
     [key: number]: boolean;
   }
-
+// State for helper block elements
   const initialIsOpenState: IsOpenStateType = {};
 
   entriesFromProps.forEach((_, idx) => {
@@ -110,7 +111,7 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
 
       <div className="frame-app-helper" >
         <div className="collapsible" >
-          <h3>{nameOfProps} of {componentName} component:</h3>
+          <h3>{nameOfProps} of {componentName} component, task {titleName}:</h3>
           <Button
             propsName="ButtonPropsType"
             className={"Open-all"}

@@ -19,6 +19,11 @@ export type TaskType = {
 export type FilteredValuesType = 'all' | 'active' | 'completed';
 
 function App() {
+    let [todolists, setTodolists] = useState<TodolistType[]>([
+        {id: v1(), title: 'What to learn', filter:'all'},
+        {id: v1(), title: 'What to byu', filter:'all'}
+    ])
+
     const [tasks, setTasks] = useState<TaskType[]>([
         { id: v1(), title: 'HTML&CSS', isDone: true },
         { id: v1(), title: 'JS', isDone: true },
@@ -72,21 +77,22 @@ function App() {
 
     return (
         <div className="App">
-            
-            <GlobalFrameHelper>
-                <Todolist
-                    title="What to learn"
-                    propsName = "PropsType"
-                    pathToProps = "./Todolist"
-                    componentName = "Todolist"
-                    tasks={tasksForTodolist}
-                    removeTask={removeTask}
-                    changeFilter={changeFilter}
-                    addTask={addTask}
-                    changeTaskStatus={changeTaskStatus}
-                    filter={filter}
-                />
-            </GlobalFrameHelper>
+            {todolists.map((tl) => (
+                <GlobalFrameHelper key={tl.id}>
+                    <Todolist
+                        title={tl.title}
+                        propsName="PropsType"
+                        pathToProps="./Todolist"
+                        componentName="Todolist"
+                        tasks={tasks}
+                        removeTask={removeTask}
+                        changeFilter={changeFilter}
+                        addTask={addTask}
+                        changeTaskStatus={changeTaskStatus}
+                        filter={tl.filter}
+                    />
+                </GlobalFrameHelper>
+            ))}
         </div>
     );
 }
