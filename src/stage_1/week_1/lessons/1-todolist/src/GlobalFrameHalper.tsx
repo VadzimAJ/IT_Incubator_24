@@ -1,54 +1,52 @@
 import React, { useState, useEffect, cloneElement } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { FilteredValuesType, TaskType, TodolistType } from './App';
 import { Button } from './Button';
 import { PropsType } from './Todolist';
 
 interface GlobalFrameHelperPropsType {
   children: React.ReactElement<PropsType>;
-  todolists: TodolistType[]
 }
 
-export const GlobalFrameHelper = ({ children, todolists }: GlobalFrameHelperPropsType) => {
+export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
 
   const todolistProps = children.props;
   const nameOfProps = todolistProps.propsName;
-  const pathToProps = todolistProps.pathToProps;
   const componentName = todolistProps.componentName;
 
   const entriesFromProps = Object.entries(todolistProps);
 
-  interface IsOpenStateType {
+  type IsOpenStateType = {
     [key: number]: boolean;
   }
-  interface toggleAllStateType {
-    toogleAll: boolean;
-  }
-  
-  const [isOpenState, setIsOpenState] = useState<IsOpenStateType>(Object.fromEntries(entriesFromProps.map((_, index) => [index, false])));
+
+  const initialIsOpenState: IsOpenStateType = {};
+
+  entriesFromProps.forEach((_, idx) => {
+    initialIsOpenState[idx] = false;
+  });
+
+  const [isOpenState, setIsOpenState] = useState<IsOpenStateType>(initialIsOpenState);
   const [toggleAllState, setToggleAllState] = useState<boolean>(false);
 
   const handleClick = (index: number) => {
     setIsOpenState(prevState => ({
       ...prevState,
-      [index]: !prevState[index] 
+      [index]: !prevState[index]
     }));
   };
 
   const toggleAllElements = () => {
     setIsOpenState(prevState => {
+      const areAllOpen = Object.values(prevState).every(isOpen => isOpen);
       const updatedState: IsOpenStateType = {};
-      const newToggleAllState = !toggleAllState; 
+
       for (const index in prevState) {
-        updatedState[index] = newToggleAllState; 
+        updatedState[index] = !areAllOpen;
       }
-      setToggleAllState(newToggleAllState);
+
+      setToggleAllState(prevToggleAllState => !prevToggleAllState);
       return updatedState;
     });
   };
-
-  const toggleAllTitle = toggleAllState ? 'Close all' : 'Open all';
 
   const spanFragment = (key: string, value: any) => (
     <span className="frame-app-helper-span clicble"  >
@@ -61,44 +59,38 @@ export const GlobalFrameHelper = ({ children, todolists }: GlobalFrameHelperProp
     return (
       <div key={key}>
         {typeof value === 'object'
-      //IF VALUE isObject
-        ? (Array.isArray(value) 
-        //IF OBJECT is Array
-          ? (<li key={key} onClick={() => handleClick(index)}>
-            {spanFragment(key, value)}
-            <ul className={isOpen ? 'open div-propsVuie' : 'close div-propsVuie'}>
-              {value.map((item, idx) => (
-                <React.Fragment key={idx}>
-                  {Object.entries(item).map(([k, v]) => (
-                    <React.Fragment key={k}>
-                      {typeof v === "boolean" ? (
-                        <li>
-                          {k}: {v ? 'true' : 'false'}<br />
-                        </li>
-                      ) : (
-                        <li>
-                          {k}: {v}<br />
-                        </li>
-                      )}
-                    </React.Fragment>
-                  ))}
-                  <br />
-                </React.Fragment>
-              ))}
-            </ul>
-          </li>)
+        //IF VALUE isObject
+          ? ( Array.isArray(value) 
+          //IF OBJECT is Array
+            ? (<li key={key} onClick={() => handleClick(index)}>
+              {spanFragment(key, value)}
+              <div className={isOpen ? 'open' : 'close'}>
+
+                {value.map((item, idx) => (
+                  <React.Fragment key={idx}>
+                    {Object.entries(item).map(([k, v]) => (
+                      <React.Fragment key={k}>{typeof v === "boolean"}
+                        {k}: {v.toString()}<br />
+                      </React.Fragment>
+                    ))}
+                    <br />
+                  </React.Fragment>
+                ))}
+                
+              </div>
+            </li>)
             //IF OBJECT is !Array
             : (<li key={key} onClick={() => handleClick(index)}>
               {spanFragment(key, value)}
-              <div className={isOpen ? 'open div-propsVuie' : 'close div-propsVuie'} >
-              {JSON.stringify(value)}<br /><br />className={isOpen ? 'open ' : 'content'}
+              <div className={isOpen ? 'open' : 'close'} >
+              {JSON.stringify(value)}<br /><br />className={isOpen ? 'open' : 'content'}
               </div>
           </li>)
           //IF VALUE !isObject
           ) : (
             <li key={key} onClick={() => handleClick(index)}>
                 {spanFragment(key, value)}
-                <div className={isOpen ? 'open div-propsVuie' : 'close div-propsVuie'}> 
+                <div className={isOpen ? 'open' : 'close'}> 
                 {`${value}`}<br />
                 </div>
             </li>
@@ -107,20 +99,14 @@ export const GlobalFrameHelper = ({ children, todolists }: GlobalFrameHelperProp
     );
   });
 
-  const clonedTodolist = cloneElement(children, {});
-
-  
+  const clonedTodolist = cloneElement(children, {
+  });
 
   return (
     <div className="frame-body">
-      {todolists.map(tl => {
-        return (
       <div className="frame-app">
         {clonedTodolist}
       </div>
-      
-    )
-  })}
 
       <div className="frame-app-helper" >
         <div className="collapsible" >
@@ -128,9 +114,8 @@ export const GlobalFrameHelper = ({ children, todolists }: GlobalFrameHelperProp
           <Button
             propsName="ButtonPropsType"
             className={"Open-all"}
-            title="Toggle"
+            title='Open All'
             onClick={toggleAllElements}
-          
           />
           {entryElements}
         </div>
