@@ -115,7 +115,7 @@ export const GlobalFrameHelper = ({ children }: GlobalFrameHelperPropsType) => {
           <Button
             propsName="ButtonPropsType"
             className={"Open-all"}
-            title='Open All'
+            title='Open/Close All'
             onClick={toggleAllElements}
           />
           {entryElements}
