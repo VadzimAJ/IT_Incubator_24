@@ -1,9 +1,15 @@
+
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import UsersList from './UserList'; // Импорт компонента UsersList из файла UsersList.tsx
+import { UsersList } from './UserList';
+import { Button } from './Button'; // Импорт компонента Button из файла Button.tsx
 
 function App() {
+  const handleClick = () => {
+    alert('Button clicked!');
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +27,7 @@ function App() {
         </a>
       </header>
       <UsersList /> {/* Использование компонента UsersList */}
+      <Button onClick={handleClick} /> {/* Передача функции handleClick в компонент Button */}
     </div>
   );
 }
