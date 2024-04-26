@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "plugins": [{ "transform": "ts-nameof", "type": "raw" }],
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    
+  },
+  "include": [
+    "src"
+, "public/switch/swintch_from_classwork/App.tsx", "public/switch/swintch_from_classwork/Button.tsx", "public/switch/swintch_from_classwork/index.tsx", "public/switch/swintch_from_classwork/react-app-env.d.ts", "public/switch/swintch_from_classwork/setupTests.ts", "public/switch/swintch_from_classwork/Todolist.tsx", "public/switch/indep_multi_switch/App.tsx", "public/switch/indep_multi_switch/Button.tsx", "public/switch/indep_multi_switch/index.tsx", "public/switch/indep_multi_switch/react-app-env.d.ts", "public/switch/indep_multi_switch/setupTests.ts", "public/switch/indep_multi_switch/Todolist.tsx", "public/switch/switch_2_classwork_2_end/AddItemForm.tsx", "public/switch/switch_2_classwork_2_end/App.tsx", "public/switch/switch_2_classwork_2_end/Button.tsx", "public/switch/switch_2_classwork_2_end/EditableSpan.tsx", "public/switch/switch_2_classwork_2_end/index.tsx", "public/switch/switch_2_classwork_2_end/react-app-env.d.ts", "public/switch/switch_2_classwork_2_end/setupTests.ts", "public/switch/switch_2_classwork_2_end/Todolist.tsx", "public/switch/indep_multi_switch/GlobalFrameHalper.tsx", "public/switch/tusd/AddItemForm.tsx", "public/switch/tusd/App.test.tsx", "public/switch/tusd/App.tsx", "public/switch/tusd/Button.tsx", "public/switch/tusd/index.tsx", "public/switch/tusd/react-app-env.d.ts", "public/switch/tusd/serviceWorker.ts", "public/switch/tusd/setupTests.ts", "public/switch/tusd/Todolist.tsx", "public/switch/Materal_UI/AddItemForm.tsx", "public/switch/Materal_UI/App.tsx", "public/switch/Materal_UI/Button.tsx", "public/switch/Materal_UI/ButtonAppBar.tsx", "public/switch/Materal_UI/EditableSpan.tsx", "public/switch/Materal_UI/index.tsx", "public/switch/Materal_UI/MenuButton.ts", "public/switch/Materal_UI/react-app-env.d.ts", "public/switch/Materal_UI/setupTests.ts", "public/switch/Materal_UI/Todolist.styles.ts", "public/switch/Materal_UI/Todolist.tsx", "public/switch/reducers/App.tsx", "public/switch/reducers/Button.tsx", "public/switch/reducers/index.tsx", "public/switch/reducers/react-app-env.d.ts", "public/switch/reducers/setupTests.ts", "public/switch/reducers/tastksReducer.ts", "public/switch/reducers/Todolist.tsx", "public/switch/independent_lessons/index.tsx", "public/switch/independent_lessons/react-app-env.d.ts", "public/switch/independent_lessons/setupTests.ts", "public/switch/independent_lessons/Todolist.tsx", "public/switch/independent_lessons/App.tsx", "public/switch/independent_lessons/Button.tsx"  ]
+}
