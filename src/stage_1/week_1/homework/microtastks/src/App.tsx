@@ -1,28 +1,43 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import { NewComponent } from './NewComponent';
+import { Button } from './Button';
 
+function App () {
 
-function App() {
-    let [students, setStudents] = useState([
-        { id: 1, name: "James", age: 8 },
-        { id: 2, name: "Robert", age: 18 },
-        { id: 3, name: "John", age: 28 },
-        { id: 4, name: "Michael", age: 38 },
-        { id: 5, name: "William", age: 48 },
-        { id: 6, name: "David", age: 58 },
-        { id: 7, name: "Richard", age: 68 },
-        { id: 8, name: "Joseph", age: 78 },
-        { id: 9, name: "Thomas", age: 88 },
-        { id: 10, name: "Charles", age: 98 },
-        { id: 11, name: "Christopher", age: 100 },
-    ]);
+    // const myfirstSubuscribe = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     console.log("Hello I'm Person 1")
+    // }
+
+    // const myfirstSubuscribe2 = () => {
+    //     console.log("Hello I'm Person 2")
+    // }
+
+    const onClickHendler = (name: string) => {
+        console.log (name)
+    }
+
+    const foo1 = () => {
+        let a = "100200";
+        console.log (a + " type of a is " + typeof a)
+    }
+
+    const foo2 = (inf: number) => {
+        console.log(inf + " type of inf is " + typeof inf)
+    }
 
     return (
-        <>
-            <NewComponent students={students} />
-        </>
+        <div>
+            
+        {/* <button onClick={(event: React.MouseEvent<HTMLButtonElement>)=>{console.log("Hello")}}>Click me</button> */}
+        <button onClick={() => onClickHendler('vasya')} >Click me</button>
+        <button onClick={() => onClickHendler('ne vasya')} >Click me - 2</button>
+
+        <button onClick = {foo1}>Button 1 void</button>
+        <button onClick = {() => foo2(100200)}>Button 2 void</button>
+
+        <Button name="Button 1" callBack={foo1}/>
+        <Button name="Button 2" callBack={() => foo2(100)}/>
+        </div>
     );
 }
-
 export default App;
