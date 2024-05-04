@@ -7,7 +7,6 @@ export const Button = (props:ButtonPropsType) => {
 
   const onClickHandler = () => {
     props.callBack()
-    console.log()
   }
 
   return (
