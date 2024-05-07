@@ -1,61 +1,35 @@
 import React, { useState } from 'react';
 import './App.css';
-import { NewComponent } from './NewComponent';
-
-type MoneyType = "ALL" | "RUBLS" | "Dollars"
+import { FullInput } from './components/Fullinput';
 
 function App() {
-    const [money, setMoney] = useState([
-        { banknots: 'Dollars', value: 100, number: ' a1234567890' },
-        { banknots: 'Dollars', value: 50, number: ' z1234567890' },
-        { banknots: 'RUBLS', value: 100, number: ' w1234567890' },
-        { banknots: 'Dollars', value: 100, number: ' e1234567890' },
-        { banknots: 'Dollars', value: 50, number: ' c1234567890' },
-        { banknots: 'RUBLS', value: 100, number: ' r1234567890' },
-        { banknots: 'Dollars', value: 50, number: ' x1234567890' },
-        { banknots: 'RUBLS', value: 50, number: ' v1234567890' },
+    const [message, setMessage] = useState([
+        { message: 'message1' },
+        { message: 'message2' },
+        { message: 'message3' },
+        { message: 'message4' },
+        { message: 'message5' }
     ])
 
-    const [filter, setFilter] = useState<MoneyType>("ALL")
-    let currentMoney = money
+    const addMassage = (title:string) => {
+        let newMassage = {message: title}
 
-    if (filter === "RUBLS") {
-        currentMoney = money.filter((filteredMoney) => filteredMoney.banknots === 'RUBLS')
-    } else if (filter === "Dollars") {
-        currentMoney = money.filter((filteredMoney) => filteredMoney.banknots === 'Dollars')
-    } 
+        setMessage ([newMassage, ...message])
 
-    
-
-
-    const onClickFilterHundler = (banknote: MoneyType) => {
-        setFilter(banknote)
-    }
+        
+      }
 
     return (
-        <>  
-            <NewComponent currentMoney= {currentMoney} onClickFilterHundler={onClickFilterHundler}/>
-            {/* <ul>
-                {currentMoney.map((objFromMoney, index) => {
-                    return (
-                        <li key={index}>
-                            <span> {objFromMoney.banknots}</span>
-                            <span> {objFromMoney.value}</span>
-                            <span> {objFromMoney.number}</span>
-                        </li>
-                    )
-                })}
-            </ul>
-            <div>
-                <button onClick={() => onClickFilterHundler("ALL")}>ALL</button>
-                <button onClick={() => onClickFilterHundler("RUBLS")}>RUBLS</button>
-                <button onClick={() => onClickFilterHundler("Dollars")}>Dollars</button>
-            </div> */}
+        <div className="App">
 
-        </>
+            <FullInput addMassage={addMassage}/>
 
-
-
+            {message.map((el, index) => {
+                return (
+                    <div key={index}>{el.message}</div>
+                )
+            })}
+        </div>
     );
 }
 export default App;
