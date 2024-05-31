@@ -2,10 +2,14 @@ import React, {useState} from 'react';
 import './App.css';
 
 
-const a = 7;
-const toBinary = a.toString(2)
-const count = toBinary.split('0').join('').length;
-console.log (count);
+function isSquare (n : number) : boolean {
+    if (n < 0) {
+        return false
+    } else {
+        return ((Math.sqrt(n)%1) ? false : true)
+    }
+}
+console.log (isSquare(1));
 
 function App () {
     return (
