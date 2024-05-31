@@ -16,14 +16,14 @@ export const FullInput = (props: FullInputPropsType) => {
 
   const onClickEventHandler = () => {
     props.addMassage(title)
-    
+    setTitle('')
   }
 
   
 
   return (
     <div>
-      <input onChange={onCachangeInputHandler}/>
+      <input value ={title} onChange={onCachangeInputHandler}/>
       <button onClick={onClickEventHandler}>+</button>
     </div>
   )

@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import './App.css';
-import MapLesson from './MapLesson';
+import OnOff from './components/OnOff';
 
 function App () {
     return (
-        <MapLesson/>
+      <>
+        <OnOff />
+        <OnOff />
+      </>
+      
     );
 }
 export default App;
