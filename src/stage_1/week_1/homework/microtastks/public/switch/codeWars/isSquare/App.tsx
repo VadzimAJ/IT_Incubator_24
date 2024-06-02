@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './App.css';
-import { FieldComponent } from './FieldComponent';
 
 
 function isSquare (n : number) : boolean {
@@ -10,13 +9,11 @@ function isSquare (n : number) : boolean {
         return ((Math.sqrt(n)%1) ? false : true)
     }
 }
-console.log (isSquare(9));
+console.log (isSquare(1));
 
 function App () {
     return (
-        <div>
-            <FieldComponent/>
-        </div>
+        <div></div>
     );
 }
 export default App;
