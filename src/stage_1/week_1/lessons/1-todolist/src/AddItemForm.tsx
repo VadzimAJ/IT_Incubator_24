@@ -1,84 +1,49 @@
-import {ChangeEvent, KeyboardEvent, useState} from "react";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import IconButton from '@mui/material/IconButton'
-import Box from "@mui/material/Box";
-import {filterButtonsContainerSx} from "./Todolist.styles";
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from "@mui/material";
+import {AddBox} from "@mui/icons-material";
 
 
-type PropsType = {
-	addItem: (title:string) => void
+
+type AddItemFormPropsType = {
+    addItem: (title: string) => void
 }
 
-export const AddItemForm = ({addItem}: PropsType) => {
+export function AddItemForm(props: AddItemFormPropsType) {
 
-	const [title, setTitle] = useState('')
-	const [error, setError] = useState<string | null>(null)
+    let [title, setTitle] = useState("")
+    let [error, setError] = useState<string | null>(null)
 
-	const addItemHandler = () => {
-		if (title.trim() !== '') {
-			addItem(title.trim())
-			setTitle('')
-		} else {
-			setError('Title is required')
-		}
-	}
+    const addItem = () => {
+        if (title.trim() !== "") {
+            props.addItem(title);
+            setTitle("");
+        } else {
+            setError("Title is required");
+        }
+    }
 
-	const changeItemHandler = (event: ChangeEvent<HTMLInputElement>) => {
-		setTitle(event.currentTarget.value)
-	}
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
 
-	const addItemOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-		setError(null)
-		if (event.key === 'Enter') {
-			addItemHandler()
-		}
-	}
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError(null);
+        if (e.charCode === 13) {
+            addItem();
+        }
+    }
 
-	const buttonStyles={
-		maxWidth: '30px',
-		maxHeight: '30px',
-		minWidth: '30px',
-		minHeight: '30px',
-		background:'red'
-	}
-
-
-	return (
-		<Box sx={filterButtonsContainerSx}>
-			{/*<input*/}
-			{/*	className={error ? 'error' : ''}*/}
-			{/*	value={title}*/}
-			{/*	onChange={changeItemHandler}*/}
-			{/*	onKeyUp={addItemOnKeyUpHandler}*/}
-			{/*/>*/}
-
-			<TextField
-				id="outlined-basic"
-				label="Enter a title"
-				variant="outlined"
-				value={title}
-				onChange={changeItemHandler}
-				onKeyUp={addItemOnKeyUpHandler}
-				size='small'
-				error={!!error}
-				helperText={error}
-			/>
-			<IconButton onClick={addItemHandler} color={'primary'}>
-				<AddBoxIcon />
-			</IconButton>
-
-			{/*<Button*/}
-			{/*	variant="contained"*/}
-			{/*	onClick={addItemHandler}*/}
-			{/*	//size='small'*/}
-			{/*	// style={buttonStyles}*/}
-			{/*>+</Button>*/}
-			{/*<Button title={'+'} onClick={addItemHandler}/>*/}
-			{/*{error && <div className={'error-message'}>{error}</div>}*/}
-		</Box>
-	)
+    return <div>
+        <TextField variant="outlined"
+                   error={!!error}
+                   value={title}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+                   label="Title"
+                   helperText={error}
+        />
+        <IconButton color="primary" onClick={addItem}>
+            <AddBox />
+        </IconButton>
+    </div>
 }
-
-

@@ -1,20 +1,39 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function UsersList() {
-    const results = useState<Array<string>>(["Bob", "Alex", "Ann"])
+function Colorize() {
 
-    const users = results[0]
-    const setUsers = results[1]
+  const [color, setColor] = useState<string>("black")
+  const colors = ["red", "yellow", "green", "blue", "violet", "chartreuse"]
 
-    return (
-       <p>Тут будет список пользователей</p>
-    )
+  const styles = {
+    width: "100px",
+    height: "100px",
+    borderRadius: "50%",
+    backgroundColor: "black"
+  }
+
+  const getColor = (colors: string[]) => {
+    const nextColor = colors[Math.floor(Math.random() * colors.length)]
+    return nextColor
+  }
+
+  return (
+    <main>
+      <div style={{...styles, backgroundColor: color}}/>
+      <div>
+        <button
+          onClick={() => setColor(getColor(color))}
+        >
+          Get random color
+        </button>
+      </div>
+    </main>
+  )
 }
 
 ReactDOM.render(
-    <UsersList/>, document.getElementById('root')
+  <Colorize/>, document.getElementById('root')
 );
-
-// Чему равно results.length?
+// Что надо вставить вместо XXX, чтобы круг менял цвет по клику?
