@@ -91,7 +91,7 @@ function App() {
 		setTasks({...tasks, [todolistId]:[]})
 	}
 
-	const updateTaskOrTodolist = (todolistId: string, title: string, taskId?: string) => {
+	const updateTask = (todolistId: string, title: string, taskId?: string) => {
 		if (taskId){
 			const newTodolistTasks = {
 				...tasks, 
@@ -133,7 +133,7 @@ function App() {
 					changeTaskStatus={changeTaskStatus}
 					filter={tl.filter}
 					removeTodolist={removeTodolist}
-					updateTaskOrTodolist={updateTaskOrTodolist}
+					updateTask={updateTask}
 				/>
 			})}
 		</div>

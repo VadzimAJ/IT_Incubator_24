@@ -1,5 +1,5 @@
 import {FilterValuesType, TaskType} from "./App";
-import {ChangeEvent} from "react";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {Button} from "./Button";
 import { AddItemForm } from "./AddItemForm";
 import { EditableTag } from "./EditableTag";
@@ -14,7 +14,6 @@ type PropsType = {
 	changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
 	filter: FilterValuesType
 	removeTodolist: (todolistId: string) => void
-	updateTaskOrTodolist: (todolistId: string, title: string, taskId?: string ) => void
 }
 
 export const Todolist = (props: PropsType) => {
@@ -27,8 +26,7 @@ export const Todolist = (props: PropsType) => {
 		addTask,
 		changeTaskStatus,
 		todolistId,
-		removeTodolist,
-		updateTaskOrTodolist
+		removeTodolist
 	} = props
 
 	const changeFilterTasksHandler = (filter: FilterValuesType) => {
@@ -43,19 +41,13 @@ export const Todolist = (props: PropsType) => {
 		addTask(title, todolistId)
 	}
 
-	const changeTodolistTitleHandler = (title: string) => {
-		updateTaskOrTodolist(todolistId,  title)
-	}
-
 	return (
 		<div>
 			<div className={"todolist-title-container"}>
-				{/* <h3>{title}</h3> */}
-				<EditableTag onChange={changeTodolistTitleHandler} value={title} tag ='h3'/>
+				<EditableTag value={title} tag ='h3'/>
 				<Button title={'x'} onClick={removeTodolistHandler}/>
 			</div>
 			<AddItemForm addItem={addTaskCallback}/>
-			<input type='checkbox'/>
 			{
 				tasks.length === 0
 					? <p>Тасок нет</p>
@@ -70,15 +62,10 @@ export const Todolist = (props: PropsType) => {
 								const newStatusValue = e.currentTarget.checked
 								changeTaskStatus(task.id, newStatusValue, todolistId)
 							}
-							
-							const changeTaskTitleHandler = (title: string) => {
-								updateTaskOrTodolist(todolistId, title, task.id)
-							}
 
 							return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
 								<input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
-								
-								<EditableTag value={task.title} onChange={changeTaskTitleHandler} tag ='span'/>
+								<EditableTag value={task.title} tag ='span'/>
 								<Button onClick={removeTaskHandler} title={'x'}/>
 							</li>
 						})}

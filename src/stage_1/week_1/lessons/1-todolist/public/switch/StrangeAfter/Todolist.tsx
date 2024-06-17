@@ -14,7 +14,7 @@ type PropsType = {
 	changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
 	filter: FilterValuesType
 	removeTodolist: (todolistId: string) => void
-	updateTaskOrTodolist: (todolistId: string, title: string, taskId?: string ) => void
+	updateTask: (todolistId: string, title: string, taskId?: string ) => void
 }
 
 export const Todolist = (props: PropsType) => {
@@ -28,7 +28,7 @@ export const Todolist = (props: PropsType) => {
 		changeTaskStatus,
 		todolistId,
 		removeTodolist,
-		updateTaskOrTodolist
+		updateTask
 	} = props
 
 	const changeFilterTasksHandler = (filter: FilterValuesType) => {
@@ -44,7 +44,7 @@ export const Todolist = (props: PropsType) => {
 	}
 
 	const changeTodolistTitleHandler = (title: string) => {
-		updateTaskOrTodolist(todolistId,  title)
+		updateTask(todolistId,  title)
 	}
 
 	return (
@@ -55,7 +55,6 @@ export const Todolist = (props: PropsType) => {
 				<Button title={'x'} onClick={removeTodolistHandler}/>
 			</div>
 			<AddItemForm addItem={addTaskCallback}/>
-			<input type='checkbox'/>
 			{
 				tasks.length === 0
 					? <p>Тасок нет</p>
@@ -72,7 +71,7 @@ export const Todolist = (props: PropsType) => {
 							}
 							
 							const changeTaskTitleHandler = (title: string) => {
-								updateTaskOrTodolist(todolistId, title, task.id)
+								updateTask(todolistId, title, task.id)
 							}
 
 							return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
