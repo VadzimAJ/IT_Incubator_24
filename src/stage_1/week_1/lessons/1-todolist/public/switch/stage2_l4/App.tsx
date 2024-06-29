@@ -19,7 +19,7 @@ import {todoReducer} from "./todoReducer";
 
 
 
-export type TaskType = {
+export type  = {
 	id: string
 	title: string
 	isDone: boolean

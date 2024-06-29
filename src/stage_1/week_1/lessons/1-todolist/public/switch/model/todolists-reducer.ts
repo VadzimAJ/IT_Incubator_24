@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {FilterValuesType, TodolistType} from "../App";
+import {FilterValuesType, TodolistType} from "../stage2_l4/App";
 
 let todolistID1 = v1()
 let todolistID2 = v1()
