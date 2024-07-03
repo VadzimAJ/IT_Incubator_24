@@ -1,7 +1,6 @@
 import './App.css';
 import {Todolist} from "./Todolist";
-import React, {useState, useReducer} from "react";
-import {tasksReducer} from "./taskReducer";
+import React, {useState} from "react";
 import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import AppBar from '@mui/material/AppBar';
@@ -15,11 +14,8 @@ import {MenuButton} from "./MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
-import {todoReducer} from "./todoReducer";
 
-
-
-export type  = {
+export type TaskType = {
 	id: string
 	title: string
 	isDone: boolean
@@ -44,29 +40,12 @@ function App() {
 	let todolistID1 = v1()
 	let todolistID2 = v1()
 
-	// let [todolists, setTodolists] = useState<TodolistType[]>([
-	// 	{id: todolistID1, title: 'What to learn', filter: 'all'},
-	// 	{id: todolistID2, title: 'What to buy', filter: 'all'},
-	// ])
-
-	const [todolists, dispatch] = useReducer( todoReducer, [
+	let [todolists, setTodolists] = useState<TodolistType[]>([
 		{id: todolistID1, title: 'What to learn', filter: 'all'},
 		{id: todolistID2, title: 'What to buy', filter: 'all'},
 	])
 
-	// let [tasks, setTasks] = useState<TasksStateType>({
-	// 	[todolistID1]: [
-	// 		{id: v1(), title: 'HTML&CSS', isDone: true},
-	// 		{id: v1(), title: 'JS', isDone: true},
-	// 		{id: v1(), title: 'ReactJS', isDone: false},
-	// 	],
-	// 	[todolistID2]: [
-	// 		{id: v1(), title: 'Rest API', isDone: true},
-	// 		{id: v1(), title: 'GraphQL', isDone: false},
-	// 	],
-	// })
-
-	const [tasks, dispatch] = useReducer( tasksReducer, {
+	let [tasks, setTasks] = useState<TasksStateType>({
 		[todolistID1]: [
 			{id: v1(), title: 'HTML&CSS', isDone: true},
 			{id: v1(), title: 'JS', isDone: true},
