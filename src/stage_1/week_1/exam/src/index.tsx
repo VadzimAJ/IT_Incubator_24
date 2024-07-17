@@ -1,7 +1,7 @@
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
       case 'TRACK-DELETED':
-         return state.filter((track: any) => XXX)
+        return state.filter((track: any) => track.id !== action.trackId)
       default:
           return state
   }
