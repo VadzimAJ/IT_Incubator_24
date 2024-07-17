@@ -1,20 +1,23 @@
-const student = {
-  name: "Artur"
+export const reducer = (state: any, action: any) => {
+  switch (action.type) {
+      case 'TRACK-DELETED':
+         return state.filter((track: any) => XXX)
+      default:
+          return state
+  }
 }
 
-const newStudent = student 
+const deleteTrackAC = (trackId: number) => ({type: 'TRACK-DELETED', trackId})
 
-const myFriend = {
-  ...newStudent 
-}
 
-const newUser = { 
-  name: "Leonid"
-}
+const state = [
+  {id: 12, likesCount: 10},
+  {id: 14, likesCount: 2},
+  {id: 100, likesCount: 0}
+]
+const newState = reducer(state, deleteTrackAC(14))
 
-const myFriendName =  student.name !== myFriend.name 
-    ? newUser.name
-    : student.name
+console.log(newState.length === 2)
 
-/*Какое значение получит переменная "myFriendName"?*/
-console.log(myFriendName)
+
+// Что нужно написать вместо XXX, чтобы корректно удалить трек и в консоли увидеть true?
