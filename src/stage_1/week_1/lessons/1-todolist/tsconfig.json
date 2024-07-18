@@ -23,5 +23,5 @@
     
   },
   "include": [
-    "src", "src/Todolist.styles.ts", "src/Todolist.tsx"  ]
+    "src", "src/Todolist.styles.ts", "src/Todolist.tsx", "public/switch/newF_withRedux/App.test.tsx", "public/switch/newF_withRedux/App.tsx", "public/switch/newF_withRedux/index.tsx", "public/switch/newF_withRedux/react-app-env.d.ts", "public/switch/newF_withRedux/reportWebVitals.ts", "public/switch/newF_withRedux/setupTests.ts"  ]
   }
