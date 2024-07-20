@@ -15,20 +15,20 @@ import avatar from './avatar.png'
 
 // нужно создать правильный тип вместо any
 export type userType = {
-    avatar: any,
-    name: string
-}
+    avatar: string;
+    name: string;
+};
 
-export type messageType = {
-    text: string,
-    time: string
-}
+export type messageLowType = {
+    text: string;
+    time: string;
+};
 
 export type MessageType = {
-    id: number,
-    user: userType,
-    message: messageType
-}
+    id: number;
+    user: userType;
+    message: messageLowType;
+};
 
 // структуру объекта не менять
 export const message0: MessageType = {
