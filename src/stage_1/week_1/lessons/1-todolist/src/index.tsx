@@ -1,49 +1,75 @@
-import {combineReducers, createStore} from 'redux'
+import {createStore} from 'redux'
 import ReactDOM from 'react-dom'
-import {Provider, useSelector} from 'react-redux'
+import {Provider, useSelector, useDispatch} from 'react-redux'
 import React from 'react'
 
-let initialState = {items:
-   [
-    {id: 1, name: 'Dimych'}, 
-    {id: 2, name: 'Ignat'}
-   ]
+const students = {
+    students: [
+        {id: 1, name: 'Bob'},
+        {id: 2, name: 'Alex'},
+        {id: 3, name: 'Donald'},
+        {id: 4, name: 'Ann'},
+    ]
 }
-const usersReducer = (state = initialState, action: any) => {
-    return state
+type RemoveStudentAT = {
+    type: "REMOVE-STUDENT"
+    id: number
 }
-
-let authInitialState = {login: 'Margo', settings: {theme: 'dark'}}
-const authReducer = (state = authInitialState, action: any) => {
-    return state
-}
-
-let rootReducer = combineReducers({
-    users: usersReducer,
-    auth: authReducer
+const RemoveStudentAC = (id: number): RemoveStudentAT => ({
+    type: "REMOVE-STUDENT",
+    id
 })
 
-const store = createStore(rootReducer)
-type RootStateType = ReturnType<typeof rootReducer>
-
-const selector = (state: RootStateType) => state.users.items
-
-const Users = () => {
-
-  const users = useSelector(selector)
-
-    return <ul>
-        {users.map(u => <li key={u.id}>{u.name}</li>)}
-    </ul>
+const studentsReducer = (state = students, action: RemoveStudentAT) => {
+    switch (action.type) {
+        case "REMOVE-STUDENT":
+            return {
+                ...state,
+                students: state.students.filter(s => s.id !== action.id)
+            }
+    }
+    return state
 }
+
+const store = createStore(studentsReducer)
+type RootStateType = ReturnType<typeof studentsReducer>
+
+
+const StudentList = () => {
+    const listItemStyles = {
+        width: "100px",
+        borderBottom: "1px solid gray",
+        cursor: "pointer",
+    }
+    const students = useSelector((state: RootStateType) => state.students)
+    const dispatch = useDispatch()
+    const studentsList = students.map(s => {
+        const removeStudent = () => {
+					dispatch (RemoveStudentAC ( s.id))
+        }
+        return (
+            <li key={s.id}
+                style={listItemStyles}
+                onClick={removeStudent}>
+                {s.name}
+            </li>)
+    })
+    return (
+        <ol>
+            {studentsList}
+        </ol>
+
+    )
+}
+
 
 ReactDOM.render(<div>
         <Provider store={store}>
-            <Users/>
+            <StudentList/>
         </Provider>
     </div>,
     document.getElementById('root')
 )
 
-// Что нужно написать вместо XXX, чтобы отрендерить список юзеров?
-// ❗ Ответ дать минимально возможным объёмом кода 
+// Что нужно написать вместо XXX, YYY и ZZZ, чтобы при клике по имени студент
+// удалялся из списка? Напишите через пробел.
