@@ -16,6 +16,8 @@ import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
 import { TodoActionsType, AddTodolistAC, changeTodolistFilterAC, changeTodolistTitle, removeTodolistAC, todolistsReducer } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TaskActionsType, tasksReducer } from './state/tasks-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppRootStateType } from './state/store';
 
 export type TaskType = {
 	id: string
@@ -42,22 +44,26 @@ function App() {
 	let todolistID1 = v1()
 	let todolistID2 = v1()
 
-	let [todolists, dispatchToTodolits] = useReducer<React.Reducer<TodolistType[], TodoActionsType>>(todolistsReducer, [
-		{id: todolistID1, title: 'What to learn', filter: 'all'},
-		{id: todolistID2, title: 'What to buy', filter: 'all'},
-	])
+let todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists)
+let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
 
-	let [tasks, dispatchToTask] = useReducer<React.Reducer<TasksStateType, TaskActionsType>>(tasksReducer, {
-		[todolistID1]: [
-			{id: v1(), title: 'HTML&CSS', isDone: true},
-			{id: v1(), title: 'JS', isDone: true},
-			{id: v1(), title: 'ReactJS', isDone: false},
-		],
-		[todolistID2]: [
-			{id: v1(), title: 'Rest API', isDone: true},
-			{id: v1(), title: 'GraphQL', isDone: false},
-		],
-	})
+const dispacth = useDispatch()
+	// let [todolists, dispatchToTodolits] = useReducer<React.Reducer<TodolistType[], TodoActionsType>>(todolistsReducer, [
+	// 	{id: todolistID1, title: 'What to learn', filter: 'all'},
+	// 	{id: todolistID2, title: 'What to buy', filter: 'all'},
+	// ])
+
+	// let [tasks, dispatchToTask] = useReducer<React.Reducer<TasksStateType, TaskActionsType>>(tasksReducer, {
+	// 	[todolistID1]: [
+	// 		{id: v1(), title: 'HTML&CSS', isDone: true},
+	// 		{id: v1(), title: 'JS', isDone: true},
+	// 		{id: v1(), title: 'ReactJS', isDone: false},
+	// 	],
+	// 	[todolistID2]: [
+	// 		{id: v1(), title: 'Rest API', isDone: true},
+	// 		{id: v1(), title: 'GraphQL', isDone: false},
+	// 	],
+	// })
 
 	const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
@@ -74,7 +80,7 @@ function App() {
 		// const newTodolistTasks = {...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== taskId)}
 		// setTasks(newTodolistTasks)
 
-		dispatchToTask(removeTaskAC(taskId, todolistId))
+		dispacth(removeTaskAC(taskId, todolistId))
 	}
 
 	const addTask = (title: string, todolistId: string) => {
@@ -86,7 +92,7 @@ function App() {
 		// const newTodolistTasks = {...tasks, [todolistId]: [newTask, ...tasks[todolistId]]}
 		// setTasks(newTodolistTasks)
 
-		dispatchToTask(addTaskAC(title, todolistId))
+		dispacth(addTaskAC(title, todolistId))
 	}
 
 	const changeTaskStatus = (taskId: string, taskStatus: boolean, todolistId: string) => {
@@ -96,28 +102,26 @@ function App() {
 		// }
 		// setTasks(newTodolistTasks)
 
-		dispatchToTask(changeTaskStatusAC(taskId, taskStatus, todolistId))
+		dispacth(changeTaskStatusAC(taskId, taskStatus, todolistId))
 	}
 
 	const changeFilter = (filter: FilterValuesType, todolistId: string) => {
-		dispatchToTodolits (changeTodolistFilterAC(todolistId, filter))
+		dispacth(changeTodolistFilterAC(todolistId, filter))
 	}
 
 	const removeTodolist = (todolistId: string) => {
 
 		const action = removeTodolistAC(todolistId)
 
-		dispatchToTodolits (action)
+		dispacth (action)
 		// delete tasks[todolistId]
 		// setTasks({...tasks})
-		dispatchToTask (action)
 	}
 
 	const addTodolist = (title: string) => {
 		const action = AddTodolistAC(title)
 
-		dispatchToTodolits(action)
-		dispatchToTask(action)
+		dispacth(action)
 
 		//????????????????
 		// setTasks ({...tasks, [action.payload.todolistId]:[]})
@@ -132,12 +136,12 @@ function App() {
 		// }
 		// setTasks(newTodolistTasks)
 
-		dispatchToTask(changeTaskTitleAC(todolistId, taskId, title))
+		dispacth(changeTaskTitleAC(todolistId, taskId, title))
 	}
 
 	const updateTodolist = (todolistId: string, title: string) => {
 
-		dispatchToTodolits (changeTodolistTitle(todolistId, title))
+		dispacth (changeTodolistTitle(todolistId, title))
 		// const newTodolists = todolists.map(tl => tl.id === todolistId ? {...tl, title} : tl)
 		// setTodolists(newTodolists)
 	}
