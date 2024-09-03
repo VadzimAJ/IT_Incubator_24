@@ -1,0 +1,28 @@
+.App {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.card{
+  font-size: large;
+  border-radius: 5px;
+  max-width: 400px;
+  max-height: 400px;
+  padding: 45px;
+  margin: 50px;
+  border: 1px solid;
+  text-align: center;
+  background-color: #7fc5ff;
+}
+.card p{
+  padding: 5px;
+  margin: 0;
+}
+.topicLesson{
+  font-weight: bold;
+}
+
+.card img {
+  max-width: 200px;
+  max-height: 200px;
+}
