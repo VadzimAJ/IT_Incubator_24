@@ -13,8 +13,8 @@ function App() {
     let likes = 0 
 
     const startCart = [
-        {title: "Hui", numberLesson: 1, likes: 3, src: logo},
-        {title: "Pizda", numberLesson: 2, likes: 5, src: logo1},
+        {title: "124", numberLesson: 1, likes: 3, src: logo},
+        {title: "Gunba", numberLesson: 2, likes: 5, src: logo1},
         {title: "Dzigueda", numberLesson: 3, likes: 10, src: logo2},
         {title: "Bober", numberLesson: 4, likes: -5, src: bober}
         
@@ -35,7 +35,7 @@ function App() {
                     />)
             })}
             </>
-                     
+
 
             {/* <Cart title={startCart[0].title}
             src={startCart[0].src}

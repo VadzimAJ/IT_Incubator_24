@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from "./components/Site.module.css";
 import { PageOne } from './components/pages/PageOne';
 import { PageTwo } from './components/pages/PageTwo';
@@ -49,21 +49,20 @@ function App() {
                         <Route path={PATH.ADIDAS} element={<PageOne/>}/>
                         <Route path={PATH.PUMA} element={<PageTwo/>}/>
                         <Route path={PATH.ABIBAS} element={<PageThree/>}/>
-                        <Route path={PATH.ERROR} element={<Error404/>}/>
 
-                        <Route path='*' element={<Error404/>}/>
+                        <Route path='*' element={<Navigate to={PATH.ERROR}/>}/>
                         
                     </Routes>
                 </div>
             </div>
-            <div className={styles.footer}>abibas 2023</div>
+            <div className={styles.footer}>abibas 2024</div>
         </div>
     );
 }
 
 const NavWrapper = styled.li`
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 30px;
 
     & > a {
         text-decoration: none;
