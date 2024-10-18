@@ -52,12 +52,15 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
 	return {type: 'CHANGE-TODOLIST-FILTER', payload: {id, filter}} as const
 }
 
+//new Actions types
+
+export type RemoveTodolistActionType = ReturnType <typeof removeTodolistAC>
+export type AddTodolistActionType = ReturnType <typeof addTodolistAC>
+export type ChangeTodolistTitleActionType = ReturnType <typeof changeTodolistTitleAC>
+export type ChangeTodolistFilterActionType = ReturnType <typeof changeTodolistFilter>
 
 
-
-
-
-// Actions types
+// Old Actions types
 // export type RemoveTodolistActionType = {
 // 	type: 'REMOVE-TODOLIST';
 // 	payload: {
@@ -88,13 +91,7 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
 // 	}
 // };
 
-export type RemoveTodolistActionType = ReturnType <typeof removeTodolistAC>
 
-export type AddTodolistActionType = ReturnType <typeof addTodolistAC>
-
-export type ChangeTodolistTitleActionType = ReturnType <typeof changeTodolistTitleAC>
-
-export type ChangeTodolistFilterActionType = ReturnType <typeof changeTodolistFilter>
 
 type ActionsType = RemoveTodolistActionType
 	| AddTodolistActionType
