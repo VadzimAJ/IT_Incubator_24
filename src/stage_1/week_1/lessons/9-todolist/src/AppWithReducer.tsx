@@ -20,8 +20,8 @@ import {
 	changeTodolistTitleAC,
 	removeTodolistAC,
 	todolistsReducer
-} from "./model/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./model/tasks-reducer";
+} from './model/todolists-reducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './model/tasks-reducer';
 
 export type TaskType = {
 	id: string
@@ -43,17 +43,17 @@ export type TasksStateType = {
 
 type ThemeMode = 'dark' | 'light'
 
-function App() {
+function AppWithReducer() {
 
 	let todolistID1 = v1()
 	let todolistID2 = v1()
 
-	let [todolists, dispatchToTodolists] = useReducer(todolistsReducer, [
+	let [todolists, dispatchToTodolist] = useReducer(todolistsReducer, [
 		{id: todolistID1, title: 'What to learn', filter: 'all'},
 		{id: todolistID2, title: 'What to buy', filter: 'all'},
 	])
 
-	let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
+	let [tasks, dispatchToTask] = useReducer(tasksReducer, {
 		[todolistID1]: [
 			{id: v1(), title: 'HTML&CSS', isDone: true},
 			{id: v1(), title: 'JS', isDone: true},
@@ -77,42 +77,43 @@ function App() {
 	});
 
 	const removeTask = (taskId: string, todolistId: string) => {
-		dispatchToTasks(removeTaskAC({taskId, todolistId}))
+		dispatchToTask(removeTaskAC({taskId, todolistId}))
+
 	}
 
 	const addTask = (title: string, todolistId: string) => {
-		dispatchToTasks(addTaskAC({title, todolistId}))
+		dispatchToTask(addTaskAC({title, todolistId}))
 	}
 
 	const changeTaskStatus = (taskId: string, taskStatus: boolean, todolistId: string) => {
-
-		dispatchToTasks(changeTaskStatusAC({taskId, todolistId, isDone: taskStatus}))
+		dispatchToTask(changeTaskStatusAC({taskId, todolistId, isDone:taskStatus}))
 	}
 
 	const changeFilter = (filter: FilterValuesType, todolistId: string) => {
-
-		dispatchToTodolists(changeTodolistFilterAC(todolistId, filter))
+		dispatchToTodolist(changeTodolistFilterAC(todolistId, filter))
+		
 	}
 
 	const removeTodolist = (todolistId: string) => {
+		const action = removeTodolistAC(todolistId)
 
-		const removeTodolistACGlobal = removeTodolistAC(todolistId)
-		dispatchToTasks(removeTodolistACGlobal)
-		dispatchToTodolists(removeTodolistACGlobal)
+		dispatchToTodolist(action)
+		dispatchToTask(action)
 	}
 
 	const addTodolist = (title: string) => {
-		dispatchToTodolists(addTodolistAC(title))
-		dispatchToTasks(addTodolistAC(title))
 
+		const action = addTodolistAC(title)
+		dispatchToTodolist(action)
+		dispatchToTask(action)
 	}
 
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
-		dispatchToTasks(changeTaskTitleAC({taskId,todolistId,title}))
+		dispatchToTask(changeTaskTitleAC({todolistId, taskId, title}))
 	}
 
 	const updateTodolist = (todolistId: string, title: string) => {
-		dispatchToTodolists(changeTodolistTitleAC(todolistId, title))
+		dispatchToTodolist(changeTodolistTitleAC(todolistId, title))
 	}
 
 	const changeModeHandler = () => {
@@ -181,4 +182,4 @@ function App() {
 	);
 }
 
-export default App;
+export default AppWithReducer;

@@ -36,8 +36,8 @@ export const todolistsReducer = (state: TodolistType[] = initialState, action: A
 }
 
 // Action creators
-export const removeTodolistAC = (todolistId: string)/*: RemoveTodolistActionType*/ => {
-	return {type: 'REMOVE-TODOLIST', payload: {id: todolistId}} as const
+export const removeTodolistAC = (id: string)/*: RemoveTodolistActionType*/ => {
+	return {type: 'REMOVE-TODOLIST', payload: {id}} as const
 }
 
 export const addTodolistAC = (title: string)/* : AddTodolistActionType */=> {
@@ -48,7 +48,7 @@ export const changeTodolistTitleAC = (id: string, title: string) => {
 	return {type: 'CHANGE-TODOLIST-TITLE', payload: {id, title}} as const
 };
 
-export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
+export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => {
 	return {type: 'CHANGE-TODOLIST-FILTER', payload: {id, filter}} as const
 }
 
@@ -57,7 +57,7 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
 export type RemoveTodolistActionType = ReturnType <typeof removeTodolistAC>
 export type AddTodolistActionType = ReturnType <typeof addTodolistAC>
 export type ChangeTodolistTitleActionType = ReturnType <typeof changeTodolistTitleAC>
-export type ChangeTodolistFilterActionType = ReturnType <typeof changeTodolistFilter>
+export type ChangeTodolistFilterActionType = ReturnType <typeof changeTodolistFilterAC>
 
 
 // Old Actions types
