@@ -1,6 +1,6 @@
 
 import { v1 } from 'uuid'
-import { TasksStateType } from '../App'
+import type{ TasksStateType } from '../app/App'
 import { 
   tasksReducer,
   removeTaskAC, 

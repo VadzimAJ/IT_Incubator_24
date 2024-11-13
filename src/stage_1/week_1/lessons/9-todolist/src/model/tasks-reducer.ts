@@ -1,21 +1,10 @@
 
-import { title } from 'process';
-import { TasksStateType } from '../App'
-import {v1} from "uuid";
-import { AddTodolistActionType, RemoveTodolistActionType } from './todolists-reducer';
 
-const initialState: TasksStateType = {
-  todolistId1: [
-    { id: '1', title: 'CSS', isDone: false },
-    { id: '2', title: 'JS', isDone: true },
-    { id: '3', title: 'React', isDone: false },
-  ],
-  todolistId2: [
-    { id: '1', title: 'bread', isDone: false },
-    { id: '2', title: 'milk', isDone: true },
-    { id: '3', title: 'tea', isDone: false },
-  ],
-}
+import { TasksStateType } from '../app/App'
+import {v1} from "uuid";
+import type { AddTodolistActionType, RemoveTodolistActionType } from './todolists-reducer';
+
+const initialState: TasksStateType = {}
 
  
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
@@ -37,7 +26,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
     case 'CHANGE-TASK-STATUS': {
       return {...state, 
         [action.payload.todolistId]: state[action.payload.todolistId].map(
-          tl => tl.id === action.payload.taskId 
+          tl => tl.id === action.payload.taskId
           ? {...tl, isDone: action.payload.isDone}
           : tl
         )
@@ -65,7 +54,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
     }
  
     default:
-      throw new Error("I don't understand this type")
+      return state
   }
 }
  
