@@ -1,4 +1,4 @@
-import type {FilterValuesType, TodolistType} from "../app/App";
+import type {FilterValuesType, TodolistType} from "../../../app/App";
 import {v1} from "uuid";
 
 const initialState: TodolistType[] = []
@@ -60,36 +60,3 @@ type ActionsType =
 	| AddTodolistActionType
 	| ChangeTodolistTitleActionType
 	| ChangeTodolistFilterActionType
-
-
-
-// Old Actions types
-// export type RemoveTodolistActionType = {
-// 	type: 'REMOVE-TODOLIST';
-// 	payload: {
-// 		id: string;
-// 	}
-// }
-
-// export type AddTodolistActionType = {
-// 	type: 'ADD-TODOLIST';
-// 	payload: {
-// 		title: string;
-// 	}
-// };
-
-// export type ChangeTodolistTitleActionType = {
-// 	type: 'CHANGE-TODOLIST-TITLE';
-// 	payload: {
-// 		id: string;
-// 		title: string;
-// 	}
-// };
-
-// export type ChangeTodolistFilterActionType = {
-// 	type: 'CHANGE-TODOLIST-FILTER';
-// 	payload: {
-// 		id: string;
-// 		filter: FilterValuesType;
-// 	}
-// };

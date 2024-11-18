@@ -4,8 +4,8 @@ import {
 	changeTodolistTitleAC,
 	removeTodolistAC,
 	todolistsReducer
-} from './todolists-reducer'
-import {TasksStateType, TodolistType} from "../app/App";
+} from '../todolists-reducer'
+import {TasksStateType, TodolistType} from "../../../../app/App";
 import { v1 } from 'uuid';
 
 let todolistId1: string

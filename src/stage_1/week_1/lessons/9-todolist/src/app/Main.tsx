@@ -1,10 +1,10 @@
 import React from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
-import {AddItemForm} from "./AddItemForm";
-import {Todolists} from "./Todolists"
+import {AddItemForm} from "../common/components/AddItemForm/AddItemForm";
+import {Todolists} from "../features/todolists/ui/Todolists/Todolists"
 import Container from "@mui/material/Container";
 import {useDispatch} from "react-redux";
-import {addTodolistAC} from "./model/todolists-reducer";
+import {addTodolistAC} from "../features/todolists/model/todolists-reducer";
 
 export const Main = () => {
 

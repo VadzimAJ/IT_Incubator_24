@@ -1,13 +1,13 @@
 
 import { v1 } from 'uuid'
-import type{ TasksStateType } from '../app/App'
+import type{ TasksStateType } from '../../../../app/App'
 import { 
   tasksReducer,
   removeTaskAC, 
   addTaskAC, 
   changeTaskStatusAC, 
-  changeTaskTitleAC } from './tasks-reducer'
-import { removeTodolistAC } from './todolists-reducer'
+  changeTaskTitleAC } from '../tasks-reducer'
+import { removeTodolistAC } from '../todolists-reducer'
 
 
 let todolistId1: string
