@@ -1,12 +1,11 @@
 import React from "react";
 import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
-import {useSelector} from "react-redux";
-import {RootState} from "./store";
-import {ThemeMode} from "./app-reducer";
 import {getTheme} from "../common/theme/theme";
 import {Header} from "../common/components/Header/Header";
 import {Main} from "./Main";
+import {useAppSelector} from "../common/hooks/useAppSelector";
+import {selectThemeMode} from "../features/todolists/model/appSelectors";
 
 export type TaskType = {
 	id: string
@@ -27,9 +26,9 @@ export type TasksStateType = {
 }
 
 
-function App() {
+export const App = ()=> {
 
-const themeMode = useSelector <RootState, ThemeMode> ((state) => state.app.themeMode)
+const themeMode = useAppSelector(selectThemeMode)
 
 	const theme = getTheme(themeMode)
 
@@ -42,4 +41,3 @@ const themeMode = useSelector <RootState, ThemeMode> ((state) => state.app.theme
 	);
 }
 
-export default App;

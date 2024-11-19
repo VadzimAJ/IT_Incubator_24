@@ -5,9 +5,9 @@ import {EditableSpan} from "../../../../../../common/components/EditableSpan/Edi
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {TaskType, TodolistType} from "../../../../../../app/App";
-import {useDispatch} from "react-redux";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../../../model/tasks-reducer";
 import {getListItemSx} from "./Task.style";
+import {useAppDispatch} from "../../../../../../common/hooks/useAppDispatch";
 
 
 type Prorps = {
@@ -16,7 +16,7 @@ type Prorps = {
 }
 export const Task = ({todolist, task}: Prorps ) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const removeTaskHandler = () => {
         dispatch(removeTaskAC({taskId: task.id, todolistId: todolist.id}))

@@ -1,8 +1,3 @@
-
-
-import { TasksStateType} from '../app/App'
-import {v1} from "uuid";
-
 export type ThemeMode = 'dark' | 'light'
 
 type InitialState = typeof initialState
@@ -16,7 +11,7 @@ const initialState = {
 export const appReducer = (state: InitialState = initialState, action: ActionsType): InitialState => {
     switch (action.type) {
         case 'SWITCH-TASK': {
-            return  {...state, themeMode:action.payload.theme}
+            return {...state, themeMode: action.payload.theme}
         }
 
         default:
@@ -27,12 +22,10 @@ export const appReducer = (state: InitialState = initialState, action: ActionsTy
 // Action creators
 export const switchThemeAC = (theme: ThemeMode) => {
     return {
-    type: 'SWITCH-TASK',
-    payload: {theme}
+        type: 'SWITCH-TASK',
+        payload: {theme}
     } as const
 }
-
-
 
 
 // Actions types

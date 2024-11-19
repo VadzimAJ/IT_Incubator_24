@@ -1,16 +1,16 @@
 import React from 'react';
 import List from "@mui/material/List";
-import {TasksStateType, TodolistType} from "../../../../../app/App";
-import { useSelector} from "react-redux";
-import {RootState} from "../../../../../app/store";
+import {TodolistType} from "../../../../../app/App";
 import {Task} from "./Task/Task";
+import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
+import {selectTasks} from "../../../model/tasksSelector";
 
 
 type Prorps = {
     todolist: TodolistType
 }
 export const Tasks = ({todolist}: Prorps ) => {
-    const tasks = useSelector<RootState, TasksStateType>((state) => state.tasks)
+    const tasks = useAppSelector(selectTasks)
     const allTodolistTasks = tasks[todolist.id]
 
     let tasksForTodolist = allTodolistTasks

@@ -6,6 +6,7 @@ import {TodolistType} from "../../../../../app/App";
 import {useDispatch} from "react-redux";
 import {changeTodolistTitleAC, removeTodolistAC} from "../../../model/todolists-reducer";
 import styles from './TodolistTitle.module.css'
+import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
 
 type  PropsType = {
     todolist: TodolistType
@@ -13,7 +14,7 @@ type  PropsType = {
 
 export const TodolistTitle = ({todolist}:PropsType) => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const removeTodolistHandler = () => {
         dispatch(removeTodolistAC(todolist.id))
