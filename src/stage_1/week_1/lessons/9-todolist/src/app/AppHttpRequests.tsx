@@ -13,12 +13,33 @@ export type Todolist = {
    "order": number
 }
 
+export type Task = {
+    description: string
+    title: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
+}
+
 export type Response<T = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors?: []
     data: T
 }
+
+export type GetTaskResponse = {
+    items: Task[]
+    totalCount: number
+    error: string | null
+}
+
 
 
 
@@ -33,9 +54,25 @@ export const AppHttpRequests = () => {
                 Authorization: 'Bearer 32916b1d-c534-4644-b29a-6dfa78581dda',
             }
         }).then(res=> {
-            setTodolists(res.data)
+            const todolists = res.data
+            setTodolists(todolists)
+            todolists.forEach(tl => {
+                axios.get<GetTaskResponse>(`https://social-network.samuraijs.com/api/1.1//todo-lists/${tl.id}/tasks`, {
+                    headers: {
+                        Authorization: 'Bearer 32916b1d-c534-4644-b29a-6dfa78581dda',
+                    }
+                }).then(res=> {
+                    console.log(res.data)
+                    setTasks({...tasks, [tl.id]: res.data.items})
+                })
+            })
         })
     }, [])
+
+    const a = {
+        title: 'sdaqs',
+        age: 35
+    }
 
     const createTodolistHandler = (title: string) => {
         // create todolist
@@ -59,7 +96,8 @@ export const AppHttpRequests = () => {
                 headers: {
                     Authorization: 'Bearer 32916b1d-c534-4644-b29a-6dfa78581dda',
                     'API-KEY': 'f1382910-332f-4712-b1bd-a86fc652657a'
-                }
+                },
+                params: a,
             }).then(res=> {
               setTodolists(todolists.filter(td => td.id !== id))
         })
@@ -84,7 +122,18 @@ export const AppHttpRequests = () => {
 
     const createTaskHandler = (title: string, todolistId: string) => {
         // create task
-
+        axios.post<Response<{item: Task}>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
+            {title},
+            {
+                headers: {
+                    Authorization: 'Bearer 32916b1d-c534-4644-b29a-6dfa78581dda',
+                    'API-KEY': 'f1382910-332f-4712-b1bd-a86fc652657a'
+                }
+            }).then(res=> {
+                console.log(res.data.data.item)
+                const newTask = res.data.data.item
+                setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+        })
 
     }
 
