@@ -3,6 +3,9 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { AddItemForm } from '../common/components/AddItemForm/AddItemForm'
 import { EditableSpan } from '../common/components/EditableSpan/EditableSpan'
 import axios from "axios";
+import {token_} from "./token_";
+import {apiKey_} from "./token_";
+
 
 type Todolist = {
   id: string
@@ -29,12 +32,7 @@ type FieldError = {
   field: string
 }
 
-type Response<T= {}> = {
-  data: T
-  resultCode: number
-  fieldsErrors: FieldError[]
-  messages: string[]
-}
+
 
 type GetTasksResponse = {
     totalCount: number
@@ -42,8 +40,25 @@ type GetTasksResponse = {
     items: Task[]
 }
 
-const token = '32916b1d-c534-4644-b29a-6dfa78581dda'
-const apiKey = 'f1382910-332f-4712-b1bd-a86fc652657a'
+type Response<T= {}> = {
+    data: T
+    resultCode: number
+    fieldsErrors: FieldError[]
+    messages: string[]
+}
+
+export type UpdateTaskModel = {
+    title: string,
+    description: string,
+    status: number,
+    priority: number,
+    startDate: string,
+    deadline: string,
+}
+
+const token = token_
+const apiKey = apiKey_
+
 const configs = {
   headers: {
     Authorization: `Bearer ${token}`,
@@ -64,7 +79,7 @@ export const AppHttpRequests = () => {
                 axios
                     .get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}/tasks`, configs)
                     .then(res => {
-                        setTasks({...tasks, [id]: res.data.items})
+                        setTasks(tasks => ({...tasks, [id]: res.data.items}))
                     })
             })
         })
@@ -107,7 +122,15 @@ export const AppHttpRequests = () => {
   }
 
   const removeTaskHandler = (taskId: string, todolistId: string) => {
-    // remove task
+      axios
+          .delete<Response<{item: Task}>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`, configs)
+          .then(res => {
+              const newTask = res.data.data.item
+              setTasks({...tasks, [todolistId]: tasks[todolistId].filter(task => task.id !== taskId)})
+
+              console.log(newTask)
+          })
+      // remove task
   }
 
   const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: Task) => {
@@ -122,7 +145,7 @@ export const AppHttpRequests = () => {
       }
 
       axios
-          .put<any>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`, model, configs)
+          .put<Response<{item: Task}>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`, model, configs)
           .then(res => {
               const newTask = res.data.data.item
               setTasks({...tasks, [task.todoListId]: tasks[task.todoListId].map(t => t.id === task.id ? newTask : t)})
@@ -153,7 +176,7 @@ export const AppHttpRequests = () => {
 
                 {/* Tasks */}
                 {!!tasks[tl.id] &&
-                    tasks[tl.id].map((task: any) => {
+                    tasks[tl.id].map((task: Task) => {
                       return (
                           <div key={task.id}>
                             <Checkbox
