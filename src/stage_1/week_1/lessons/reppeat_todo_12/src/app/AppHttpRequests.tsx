@@ -3,8 +3,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { AddItemForm } from '../common/components/AddItemForm/AddItemForm'
 import { EditableSpan } from '../common/components/EditableSpan/EditableSpan'
 import axios from "axios";
-import {token_} from "./token_";
-import {apiKey_} from "./token_";
+import {token_} from "../common/components/instance/token_";
+import {apiKey_} from "../common/components/instance/token_";
 import {GetTasksResponse, Task, UpdateTaskModel} from "../features/todolists/api/tasksApi.types";
 import {Todolist, Response} from "../features/todolists/api/todolistsApi.types";
 import {todolistsApi} from "../features/todolists/api/todolistsApi";
@@ -28,7 +28,7 @@ export const AppHttpRequests = () => {
   const [tasks, setTasks] = useState<{[key: string] : Task[]}>({})
 
   useEffect(() => {
-      todolistsApi.getTodolists(configs)
+      todolistsApi.getTodolists()
         .then(res => {
           const todolists = res.data
           setTodolists((todolists))
@@ -43,7 +43,7 @@ export const AppHttpRequests = () => {
   }, [])
 
   const createTodolistHandler = (title: string) => {
-      todolistsApi.createTodolist({title, configs})
+      todolistsApi.createTodolist({title})
         .then(res => {
           const newTodo = res.data.data.item
           setTodolists([newTodo, ...todolists])
@@ -51,14 +51,14 @@ export const AppHttpRequests = () => {
   }
 
   const removeTodolistHandler = (id: string) => {
-      todolistsApi.deliteTodlist({id, configs})
+      todolistsApi.deliteTodlist({id})
         .then(res => {
           setTodolists(todolists.filter(tl => tl.id !== id))
         })
   }
 
   const updateTodolistHandler = (id: string, title: string) => {
-        todolistsApi.updateTodolist({id, title, configs})
+        todolistsApi.updateTodolist({id, title})
           .then(res => {
               setTodolists(todolists.map(tl => tl.id === id ? {...tl, title: title} : tl))
           })
