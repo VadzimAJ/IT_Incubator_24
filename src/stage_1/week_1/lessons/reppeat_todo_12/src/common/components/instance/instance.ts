@@ -1,15 +1,10 @@
-import axios from "axios";
-import {apiKey_, token_} from "./token_";
-
-
-const token = token_
-const apiKey = apiKey_
+import axios from "axios"
 
 export const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    timeout: 1000,
-    headers: {
-        Authorization: `Bearer ${token}`,
-        'API-KEY': apiKey,
-    }
-});
+  baseURL: process.env.REACT_APP_API_BASE_URL,
+  timeout: 1000,
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`,
+    "API-KEY": process.env.REACT_APP_API_KEY,
+  },
+})
