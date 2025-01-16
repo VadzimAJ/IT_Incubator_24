@@ -3,10 +3,11 @@ import React, { ChangeEvent, useEffect, useState } from "react"
 import { AddItemForm } from "../common/components/AddItemForm/AddItemForm"
 import { EditableSpan } from "../common/components/EditableSpan/EditableSpan"
 import axios from "axios"
-import { GetTasksResponse, Task, UpdateTaskModel } from "../features/todolists/api/tasksApi.types"
-import { Todolist, BaseResponse } from "../features/todolists/api/todolistsApi.types"
+import type { GetTasksResponse, Task, UpdateTaskModel } from "../features/todolists/api/tasksApi.types"
+import type { Todolist, BaseResponse } from "../features/todolists/api/todolistsApi.types"
 import { todolistsApi } from "../features/todolists/api/todolistsApi"
 import { TaskStatus } from "../features/todolists/lib/enams/enams"
+import { tasksApi } from "../features/todolists/api/tasksApi"
 
 export const configs = {
   headers: {
@@ -24,11 +25,9 @@ export const AppHttpRequests = () => {
       const todolists = res.data
       setTodolists(todolists)
       todolists.forEach(({ id }) => {
-        axios
-          .get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}/tasks`, configs)
-          .then((res) => {
-            setTasks((tasks) => ({ ...tasks, [id]: res.data.items }))
-          })
+        tasksApi.getTasks({ id }).then((res) => {
+          setTasks((tasks) => ({ ...tasks, [id]: res.data.items }))
+        })
       })
     })
   }, [])
@@ -53,17 +52,11 @@ export const AppHttpRequests = () => {
   }
 
   const createTaskHandler = (title: string, todolistId: string) => {
-    axios
-      .post<
-        BaseResponse<{
-          item: Task
-        }>
-      >(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`, { title }, configs)
-      .then((res) => {
-        const newTask = res.data.data.item
-        const todolistsTask = tasks[todolistId] || []
-        setTasks({ ...tasks, [todolistId]: [newTask, ...todolistsTask] })
-      })
+    tasksApi.createTask({ title, todolistId }).then((res) => {
+      const newTask = res.data.data.item
+      const todolistsTask = tasks[todolistId] || []
+      setTasks({ ...tasks, [todolistId]: [newTask, ...todolistsTask] })
+    })
     // create task
   }
 

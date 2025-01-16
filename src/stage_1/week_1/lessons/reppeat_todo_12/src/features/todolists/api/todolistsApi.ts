@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BaseResponse, Todolist } from "./todolistsApi.types"
+import type { BaseResponse, Todolist } from "./todolistsApi.types"
 import { instance } from "../../../common/components/instance/instance"
 
 export const todolistsApi = {
